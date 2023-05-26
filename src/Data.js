@@ -220,14 +220,15 @@ export const SecondCategory=[
 ]
 export const ViewProduct=[
     {
-        mianImg:`${proImg1}`,
+        mainImg:`${proImg1}`,
         secImg1:`${proImg2}`,
         secImg2:`${proImg3}`,
         secImg3:`${proImg4}`,
         secImg4:`${proImg5}`,
         department:"Home / T-shirt",
         title:"Men's Fashion T shirt",
-        price:"299 EGP",
+        price:"299.00 EGP",
         desc:"Train like a professional. Relax like a champion. This football jersey shows off a clean, classic design with an adidas Badge of Sport on the chest. Moisture-absorbing AEROREADY will keep you dry and cool whether you're playing a kickabout in the park or enjoying a night out on the town. Made with 100% recycled materials, this product represents just one of our solutions to help end plastic waste.",
+
     }
 ]
