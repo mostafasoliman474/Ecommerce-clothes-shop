@@ -25,6 +25,12 @@ import cat2 from './asetess/banner/b10.jpg'
 import cat3 from './asetess/banner/b7.jpg'
 import cat4 from './asetess/banner/b4.jpg'
 import cat5 from './asetess/banner/b18.jpg'
+import blog1 from './asetess/blog/b1.jpg'
+import blog2 from './asetess/blog/b2.jpg'
+import blog3 from './asetess/blog/b3.jpg'
+import blog4 from './asetess/blog/b4.jpg'
+import blog5 from './asetess/blog/b5.jpg'
+import blog6 from './asetess/blog/b6.jpg'
 
 
 export const FeaturesData=[
@@ -231,4 +237,48 @@ export const ViewProduct=[
         desc:"Train like a professional. Relax like a champion. This football jersey shows off a clean, classic design with an adidas Badge of Sport on the chest. Moisture-absorbing AEROREADY will keep you dry and cool whether you're playing a kickabout in the park or enjoying a night out on the town. Made with 100% recycled materials, this product represents just one of our solutions to help end plastic waste.",
 
     }
+]
+export const BlogData=[
+    {
+        id:1,
+        blogSection:'13/01',
+        blogImg:`${blog1}`,
+        blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
+        blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
+    },
+    {
+        id:2,
+        blogSection:'13/01',
+        blogImg:`${blog2}`,
+        blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
+        blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
+    },
+    {
+        id:3,
+        blogSection:'13/01',
+        blogImg:`${blog3}`,
+        blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
+        blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
+    },
+    {
+        id:4,
+        blogSection:'13/01',
+        blogImg:`${blog4}`,
+        blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
+        blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
+    },
+    {
+        id:5,
+        blogSection:'13/01',
+        blogImg:`${blog5}`,
+        blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
+        blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
+    },
+    {
+        id:6,
+        blogSection:'13/01',
+        blogImg:`${blog6}`,
+        blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
+        blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
+    },
 ]
