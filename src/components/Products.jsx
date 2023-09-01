@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { ProductItem } from '../Data'
 import { Product } from './Product'
+import { Link } from 'react-router-dom'
 const Container=styled.div`
     display: flex;
     flex-direction:column;
@@ -29,11 +30,14 @@ export const Products = () => {
     <Container>
         <HeadLine>Featured Products</HeadLine>
         <Title>Summer Collection New Modern Design</Title>
-        <ProductContainer>
-            {ProductItem.map((item)=>(
-                <Product item={item}/>
-            ))}
-        </ProductContainer>
+        <Link to='/productdetails' style={{textDecorationColor:'transparent'}}> 
+          <ProductContainer>
+              {ProductItem.map((item)=>(
+                  <Product item={item}/>
+              ))}
+          </ProductContainer>
+        </Link>
+        
         
     </Container>
   )

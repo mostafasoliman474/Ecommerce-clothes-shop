@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Navbar } from '../components/Navbar'
-// import { Add, Remove } from '@mui/icons-material'
+
 import { NewsLetter } from '../components/NewsLetter'
 import { NewArrival } from '../components/NewArrival'
 import { ViewProduct } from '../Data'
@@ -103,7 +103,7 @@ const Amount = styled.input`
     height: 40px;
     padding-left: 10px;
     font-weight: 800;
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
     margin: 0 10px 0 0 ;
 `
@@ -124,19 +124,18 @@ const ProductInfo = styled.p`
   color: #000000ba;
 `
 export const ProductDetails = (item) => {
+  const [selectedPhoto,setSelectedPhoto]=useState(0);
   return (
     <Container>
       <Navbar />
-
       {ViewProduct.map((item) => (
         <ProductContainer>
           <Left>
-            <MainImg src={item.mainImg} />
+            <MainImg src={item.images[selectedPhoto].src} />
             <SecondaryImgContainer>
-              <Image src={item.secImg1} position="secondary" />
-              <Image src={item.secImg2} position="secondary" />
-              <Image src={item.secImg3} position="secondary" />
-              <Image src={item.secImg4} position="secondary" />
+              {item.images.map((item)=>(
+                <Image src={item.src} position="secondary" onClick={()=>setSelectedPhoto(item.index)}/>
+              ))}
             </SecondaryImgContainer>
           </Left>
           <Right>

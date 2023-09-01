@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FeaturesData } from '../Data'
 import { Feature } from './Feature'
+
 const Container=styled.div`
     
     width: 100%;
@@ -18,7 +19,7 @@ export const Features = () => {
   return (
     <Container>
         {FeaturesData.map((item)=>(
-            <Feature item={item}/>
+                <Feature item={item} />
         ))}
     </Container>
 )}

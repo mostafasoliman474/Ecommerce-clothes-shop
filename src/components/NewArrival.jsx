@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { NewArrivalItems } from '../Data'
 
 import { Product } from './Product'
+import { Link } from 'react-router-dom'
 const Container=styled.div`
     display: flex;
     flex-direction:column;
@@ -23,17 +24,21 @@ display: flex;
 width: 100%;
 flex-wrap: wrap;
 justify-content: center;
+
 `
 export const NewArrival = () => {
   return (
     <Container>
         <HeadLine>New Arrival</HeadLine>
         <Title>Summer Collection New Modern Design</Title>
-        <ProductContainer>
-            {NewArrivalItems.map((item)=>(
-                <Product item={item}/>
-            ))}
-        </ProductContainer>
+        <Link to='/productdetails' style={{textDecorationColor:'transparent'}}>
+            <ProductContainer>
+                {NewArrivalItems.map((item)=>(
+                    <Product item={item}/>
+                ))}
+            </ProductContainer>
+        </Link>
+        
         
     </Container>
   )

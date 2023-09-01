@@ -226,11 +226,24 @@ export const SecondCategory=[
 ]
 export const ViewProduct=[
     {
-        mainImg:`${proImg1}`,
-        secImg1:`${proImg2}`,
-        secImg2:`${proImg3}`,
-        secImg3:`${proImg4}`,
-        secImg4:`${proImg5}`,
+        images:[
+            {
+                index:0,
+                src:`${proImg2}`,
+            },
+            {
+                index:1,
+                src:`${proImg3}`,
+            },
+            {
+                index:2,
+                src:`${proImg4}`,
+            },
+            {
+                index:3,
+                src:`${proImg5}`,
+            },
+        ],
         department:"Home / T-shirt",
         title:"Men's Fashion T shirt",
         price:"299.00 EGP",
@@ -248,37 +261,62 @@ export const BlogData=[
     },
     {
         id:2,
-        blogSection:'13/01',
+        blogSection:'14/02',
         blogImg:`${blog2}`,
         blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
         blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
     },
     {
         id:3,
-        blogSection:'13/01',
+        blogSection:'13/02',
         blogImg:`${blog3}`,
         blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
         blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
     },
     {
         id:4,
-        blogSection:'13/01',
+        blogSection:'14/03',
         blogImg:`${blog4}`,
         blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
         blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
     },
     {
         id:5,
-        blogSection:'13/01',
+        blogSection:'15/02',
         blogImg:`${blog5}`,
         blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
         blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
     },
     {
         id:6,
-        blogSection:'13/01',
+        blogSection:'13/06',
         blogImg:`${blog6}`,
         blogTitle:'The Cotton-Jersey Zip-Up Hoodie',
         blogInfo:'Atlantic-Pacific creator Blair Eadie has been in the fashion industry for several years now. Having worked for companies such as Tory Burch and Gap, she has the insider’s experience in how the industry has evolved over the years.',
+    },
+]
+export const CartItems=[
+    {
+        id:1,
+        selectedproduct:`${proImg2}`,
+        price:'100$',
+        prodeuctname:'cotton formal chemise',
+        quantity:1
+
+    },
+    {
+        id:2,
+        selectedproduct:`${proImg3}`,
+        price:'110$',
+        prodeuctname:'cotton formal chemise',
+        quantity:1
+
+    },
+    {
+        id:3,
+        selectedproduct:`${proImg4}`,
+        price:'120$',
+        prodeuctname:'cotton formal chemise',
+        quantity:1
     },
 ]

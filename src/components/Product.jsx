@@ -89,11 +89,11 @@ export const Product = ({item}) => {
             <BannerFooter>
                 <PriceRateContainer>
                     <StarContainer>
-                        <StarBorderOutlined/>
-                        <StarBorderOutlined/>
-                        <StarBorderOutlined/>
-                        <StarBorderOutlined/>
-                        <StarBorderOutlined/>
+                        <StarBorderOutlined style={{color:'black'}}/>
+                        <StarBorderOutlined style={{color:'black'}}/>
+                        <StarBorderOutlined style={{color:'black'}}/>
+                        <StarBorderOutlined style={{color:'black'}}/>
+                        <StarBorderOutlined style={{color:'black'}}/>
                     </StarContainer>
                     <Price>{item.price}</Price>
                 </PriceRateContainer>
