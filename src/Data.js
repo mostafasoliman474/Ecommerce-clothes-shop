@@ -31,7 +31,35 @@ import blog3 from './asetess/blog/b3.jpg'
 import blog4 from './asetess/blog/b4.jpg'
 import blog5 from './asetess/blog/b5.jpg'
 import blog6 from './asetess/blog/b6.jpg'
-
+import avatar1 from './asetess/people/1.png'
+import avatar2 from './asetess/people/2.png'
+import avatar3 from './asetess/people/3.png'
+export const PeopleSub=[
+    {
+        id:1,
+        img:`${avatar1}`,
+        title:'John Doe',
+        jobTitle:'Senior marketing manager',
+        phone:"+000 123 000 77 88",
+        email:'Contact@example.com'
+    },
+    {
+        id:2,
+        img:`${avatar2}`,
+        title:'William Smith',
+        jobTitle:'Senior marketing manager',
+        phone:"+000 123 000 77 88",
+        email:'Contact@example.com'
+    },
+    {
+        id:3,
+        img:`${avatar3}`,
+        title:'Emma Stone',
+        jobTitle:'Senior marketing manager',
+        phone:"+000 123 000 77 88",
+        email:'Contact@example.com'
+    },
+]
 
 export const FeaturesData=[
     {
