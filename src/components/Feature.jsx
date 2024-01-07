@@ -1,14 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Mobile } from '../Responsive'
 const Container=styled.div`
     border: 1px solid #E3E6f3;
     display: flex;
     flex-direction:column;
     align-items: center;
     justify-content: center;
-  
     width: 180px;
- 
     padding: 25px 15px;
     background-color: #ffffff;
     border-radius: 3px;
@@ -18,6 +17,10 @@ const Container=styled.div`
     &:hover{
         box-shadow: 10px 20px 10px rgba(0,0,0,0.08);
     }
+    ${Mobile({
+      width:"300px",
+      height:"300px"
+    })}
 `
 const Image=styled.img`
   margin-bottom: 10px;

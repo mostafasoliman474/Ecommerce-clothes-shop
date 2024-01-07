@@ -234,7 +234,7 @@ export const FirstCategory=[
 ]
 export const SecondCategory=[
     {
-        id1:1,
+        id:1,
         img:`${cat3}`,
         headline:'SEASONAL SALE',
         desc:'Winter Collection-50% OFF'

@@ -5,6 +5,7 @@ import logoImg from '../asetess/logo.png'
 import AppleImg from '../asetess/pay/app.jpg'
 import GoogleImg from '../asetess/pay/play.jpg'
 import PaymentImg from '../asetess/pay/pay.png'
+import { Mobile } from '../Responsive'
 const Container=styled.div`
     background-color:white;
     margin: 50px 0 20px 0;
@@ -13,7 +14,10 @@ const Wrapper=styled.div`
     display: flex;
     padding: 0 40px;
     flex-direction: row;
-    
+    ${Mobile({
+        flexDirection:'column',
+        gap:'20px'
+    })}
 `
 const Right=styled.div`
     flex: 1;
@@ -58,6 +62,11 @@ const LinkContainer=styled.div`
     display: flex;
     flex-direction: row;
     height: 100%;
+    ${Mobile({
+        flexDirection:'column'
+        
+    })}
+    
 `
 const ULContainer=styled.ul`
     display: flex;
@@ -88,6 +97,10 @@ const StoresTitle=styled.p`
 `
 const PaymentImage=styled.img`
    cursor: pointer; 
+   ${Mobile({
+       display:'flex'
+        
+    })}
 `
 const PaymentTilte=styled.p`
     margin-bottom: 10px;
@@ -104,9 +117,7 @@ const Line=styled.span`
 export const Footer = () => {
   return (
     <Container>
-        <Wrapper>
-            
-            
+        <Wrapper> 
             <Left>
                 <Logo src={logoImg}></Logo>
                 <HeadLine>Contacts</HeadLine>
@@ -120,7 +131,6 @@ export const Footer = () => {
                     <Contact>
                        Hours: <Line>10:00 - 18:00 , Mon-Sat </Line>
                     </Contact>
-
                 </ContactsContainer>
                 <HeadLine>
                     Follow Us
@@ -131,8 +141,6 @@ export const Footer = () => {
                     <Instagram fontSize='small' style={{marginRight:'4px',cursor:'pointer'}}/>
                     <Pinterest fontSize='small' style={{marginRight:'4px',cursor:'pointer'}}/>
                     <YouTube fontSize='small' style={{marginRight:'4px',cursor:'pointer'}}/>
-                    
-                    
                 </SocialContainer>
             </Left>
             <Center>

@@ -1,6 +1,6 @@
-
 import React from 'react'
 import styled from 'styled-components'
+import { Mobile } from '../Responsive'
 const Container=styled.div`
     flex:1;
     background-image:url(${props=>props.src});
@@ -14,6 +14,13 @@ const Container=styled.div`
     background-size: cover;
     margin: 10px;
     cursor: pointer;
+    ${Mobile({
+        backgroundPosition:'bottom',
+        padding:'15px',
+        flex:'none',
+        height:"200px"
+        
+    })}
 `
 const HeadLine=styled.div`
     margin-bottom: 10px;

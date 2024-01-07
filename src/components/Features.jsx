@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FeaturesData } from '../Data'
 import { Feature } from './Feature'
+import { Mobile } from '../Responsive'
 
 const Container=styled.div`
     
@@ -14,12 +15,17 @@ const Container=styled.div`
     padding: 0 25px;
     flex-wrap: wrap;
     margin: 20px 0;
+    ${Mobile({
+      justifyContent:'center',
+      padding:'0',
+      
+    })}
 `
 export const Features = () => {
   return (
     <Container>
         {FeaturesData.map((item)=>(
-                <Feature item={item} />
+                <Feature item={item} key={item.id} />
         ))}
     </Container>
 )}

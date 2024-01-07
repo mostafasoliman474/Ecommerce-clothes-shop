@@ -1,7 +1,8 @@
 import { ShoppingCartOutlined, StarBorderOutlined } from '@mui/icons-material'
 import React from 'react'
 import styled from 'styled-components'
-const Container=styled.div`
+import { Mobile } from '../Responsive'
+const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 300px;
@@ -10,13 +11,16 @@ const Container=styled.div`
     border-radius: 20px;
     margin: 20px;
     transition:ease-out 70ms;
-    
+    ${Mobile({
+    width: '350px',
+    height: '430px'
+})}
     &:hover{
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         
     }
 `
-const ImageContainer=styled.div`
+const ImageContainer = styled.div`
     flex:1;
     height: 70%;
     display: flex;
@@ -24,46 +28,46 @@ const ImageContainer=styled.div`
     justify-content: center;
     cursor: pointer;
 `
-const InfoContainer=styled.div`
+const InfoContainer = styled.div`
     height: 30%;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
     padding: 10px;
 `
-const Brand=styled.p`
+const Brand = styled.p`
     color: #222;
     font-size: 12px;
     opacity:.7;
     margin-bottom: 3px;
 
 `
-const Image=styled.img`
+const Image = styled.img`
     width: 100%;
     border-radius:  30px ;
     padding:  10px 10px;
 `
-const Desc=styled.div`
+const Desc = styled.div`
     font-weight: 700;
     font-size: 16px;
     margin-bottom: 3px;
     color: teal;
 `
-const StarContainer=styled.div`
+const StarContainer = styled.div`
     margin-bottom: 3px;
 `
-const Price=styled.div`
+const Price = styled.div`
 color: teal;
 font-weight: 700;
 `
-const BannerFooter=styled.div`
+const BannerFooter = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: end;
     width: 100%;
 `
-const CartContainer=styled.div`
+const CartContainer = styled.div`
     width: 40px;
     height: 40px;
     background-color: rgb(141, 207, 179);
@@ -75,35 +79,33 @@ const CartContainer=styled.div`
     align-items: center;
     border-radius: 50%;
 `
-const PriceRateContainer=styled.div`
+const PriceRateContainer = styled.div`
 `
-export const Product = ({item}) => {
-  return (
-    <Container>
-        <ImageContainer>
-            <Image src={item.img} />
-        </ImageContainer>
-        <InfoContainer>
-            <Brand>{item.brand}</Brand>
-            <Desc>{item.desc}</Desc>
-            <BannerFooter>
-                <PriceRateContainer>
-                    <StarContainer>
-                        <StarBorderOutlined style={{color:'black'}}/>
-                        <StarBorderOutlined style={{color:'black'}}/>
-                        <StarBorderOutlined style={{color:'black'}}/>
-                        <StarBorderOutlined style={{color:'black'}}/>
-                        <StarBorderOutlined style={{color:'black'}}/>
-                    </StarContainer>
-                    <Price>{item.price}</Price>
-                </PriceRateContainer>
-                <CartContainer>
-                    <ShoppingCartOutlined/>
-                </CartContainer>
-            </BannerFooter>
-            
-        </InfoContainer>
-        
-    </Container>
-  )
+export const Product = ({ item }) => {
+    return (
+        <Container>
+            <ImageContainer>
+                <Image src={item.img} />
+            </ImageContainer>
+            <InfoContainer>
+                <Brand>{item.brand}</Brand>
+                <Desc>{item.desc}</Desc>
+                <BannerFooter>
+                    <PriceRateContainer>
+                        <StarContainer>
+                            <StarBorderOutlined style={{ color: 'black' }} />
+                            <StarBorderOutlined style={{ color: 'black' }} />
+                            <StarBorderOutlined style={{ color: 'black' }} />
+                            <StarBorderOutlined style={{ color: 'black' }} />
+                            <StarBorderOutlined style={{ color: 'black' }} />
+                        </StarContainer>
+                        <Price>{item.price}</Price>
+                    </PriceRateContainer>
+                    <CartContainer>
+                        <ShoppingCartOutlined />
+                    </CartContainer>
+                </BannerFooter>
+            </InfoContainer>
+        </Container>
+    )
 }

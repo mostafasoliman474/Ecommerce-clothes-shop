@@ -34,7 +34,7 @@ export const NewArrival = () => {
         <Link to='/productdetails' style={{textDecorationColor:'transparent'}}>
             <ProductContainer>
                 {NewArrivalItems.map((item)=>(
-                    <Product item={item}/>
+                    <Product item={item} key={item.id}/>
                 ))}
             </ProductContainer>
         </Link>

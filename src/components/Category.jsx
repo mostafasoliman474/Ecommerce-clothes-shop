@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Mobile } from '../Responsive'
 const Container=styled.div`
     flex:1;
     background-image:url(${props=>props.src});
@@ -12,24 +13,29 @@ const Container=styled.div`
     padding-left: 30px;
     background-size: cover;
     margin: 10px;
-   
-    
+    ${Mobile({
+        backgroundPosition:'bottom',
+        padding:'15px',
+        
+    })}
     filter: brightness(.9);
     &:hover{
         filter: brightness(1);
-       
-
     }
 `
 const Title=styled.p`
     margin-bottom: 20px;
     font-size: 22px;
     font-weight: 500;
+    
 `
 const Offer=styled.h1`
     font-size: 50px;
     font-weight:bolder;
     margin-bottom: 20px;
+    ${Mobile({
+        fontSize:'32px'
+    })}
 `
 const Button=styled.div`
     border:2px solid white;

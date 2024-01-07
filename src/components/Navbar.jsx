@@ -1,4 +1,4 @@
-import { CloseOutlined, LocalMallOutlined, Search } from '@mui/icons-material'
+import { CloseOutlined, LocalMallOutlined, MenuOutlined, Search } from '@mui/icons-material'
 import { Badge } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
@@ -15,7 +15,7 @@ const Container = styled.div`
     z-index: 100;
     
 `
-const Logo=styled.img`
+const Logo = styled.img`
   
 `
 const Wrapper = styled.div`
@@ -25,18 +25,29 @@ const Wrapper = styled.div`
     height: 100%;
    
 `
-const Right = styled.div`
+const RightDesktop = styled.div`
     flex: 1;
     padding-left:40px;
-    display: flex;
+    display:flex;
     justify-content: center;
-
+  ${Mobile({
+  display: 'none'
+})}
+`
+const RightMobile = styled.div`
+    flex: 1;
+    padding-left:40px;
+    display: none;
+    justify-content: center;
+    ${Mobile({
+  display: 'flex'
+})}
 `
 const Left = styled.div`
     flex: 1;
     margin-left: 50px;
 `
-const MenuItemCart=styled.a`
+const MenuItemCart = styled.a`
     display: inline-block;
     position: relative;
     font-weight: 600;
@@ -61,8 +72,8 @@ const MenuItemCart=styled.a`
       color: teal;
     }
     ${Mobile({
-      
-    })}
+
+})}
 `
 const Links = styled.a`
     display: inline-block;
@@ -89,22 +100,40 @@ const Links = styled.a`
       color: teal;
     }
     ${Mobile({
-      display:'none'
-    })}
+  display: 'none'
+})}
+`
+const PopMenu=styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  gap: 20px;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  transition: 3s;
+  padding-top: 60px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 36px;
+  background-color: white;
 `
 
 export const Navbar = () => {
-  
-  
+  const [toggle, setToggle] = useState(false);
+  console.log(toggle)
   return (
     <Container>
       <Wrapper>
         <Left>
-          <Logo src={img}/>
-        
-        </Left>
-        <Right>
+          <Logo src={img} />
 
+        </Left>
+        <RightDesktop>
+          {/* {toggle } */}
           <Link to='/' style={{ "color": "inherit" }}>
             <Links>Home</Links>
           </Link>
@@ -134,7 +163,35 @@ export const Navbar = () => {
             </MenuItemCart>
           </Link>
 
-        </Right>
+        </RightDesktop>
+        <RightMobile version='mobile'>
+          <MenuOutlined onClick={() => setToggle((prev) => !prev)} />
+        </RightMobile>
+        {toggle && (
+
+            <PopMenu apper={toggle}>
+              <CloseOutlined onClick={()=>{setToggle((prev)=>!prev)}}/>
+              <Link to='/' >
+                <Links>Home</Links>
+              </Link>
+
+              <Link to='/shop' >
+                <Links>Shop</Links>
+              </Link>
+
+              <Link to='/blog' >
+                <Links>Blog</Links>
+              </Link>
+
+              <Link to='/about' >
+                <Links>About</Links>
+              </Link>
+
+              <Link to='/contactus' style={{ "color": "inherit" }}>
+                <Links>Contact</Links>
+              </Link>
+            </PopMenu>
+          )}
       </Wrapper>
     </Container>
   )

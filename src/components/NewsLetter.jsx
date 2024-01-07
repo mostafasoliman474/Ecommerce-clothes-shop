@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import bcImg from '../asetess/banner/b14.png'
+import { Mobile } from '../Responsive'
 const Container=styled.div`
     height: 30vh;
     width: 100%;
@@ -15,6 +16,10 @@ const Container=styled.div`
     color: #ffffff;
     padding: 0 40px;
     margin: 20px 0;
+    ${Mobile({
+      flexDirection:'column',
+      padding:'20px 0px'
+    })}
 `
 const Input=styled.input`
   background-color: ${props=>props.bg==='teal'&&'teal'};
@@ -28,17 +33,27 @@ const Input=styled.input`
   border: none;
   font-weight:${props=>props.bg==='teal'&&600} ;
   border-radius: ${props=>props.bg==='white'?'5px 0 0 5px':'0 5px 5px 0;'} ;
+  ${Mobile({
+    width:"100%",
+    
+  })}
 `
 const DescContainer=styled.div`
   flex: 1;
 `
 const Title=styled.h1`
   margin-bottom: 15px;
+  ${Mobile({
+    fontSize:'23px',textAlign:"center"
+  })}
 `
 const Desc=styled.p`
   opacity: .8;
   font-size: 14px;
   letter-spacing: 1px;
+  ${Mobile({
+    textAlign:"center"
+  })}
 `
 const InputContainer=styled.div`
   display: flex;

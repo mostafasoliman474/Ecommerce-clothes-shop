@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import backgroundImg from '../asetess/banner/b2.jpg'
+import { Mobile } from '../Responsive'
 const Container=styled.div`
     height: 40vh;
     width: 100%;
@@ -10,6 +11,7 @@ const Container=styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 `
 const Title=styled.p`
     color :white;
@@ -19,6 +21,9 @@ const Title=styled.p`
 const Desc=styled.h1`
     color:white;
     margin-bottom: 20px;
+    ${Mobile({
+      fontSize:'18px'
+    })}
 `
 const Button=styled.button`
   padding: 10px 20px;

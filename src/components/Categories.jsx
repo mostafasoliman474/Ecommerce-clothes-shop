@@ -3,6 +3,7 @@ import { FirstCategory, SecondCategory } from '../Data'
 import { Category } from './Category'
 import { Category2 } from './Category2'
 import styled from 'styled-components'
+import { Mobile } from '../Responsive'
 const Container=styled.div`
     display: flex;
     flex-direction: row;
@@ -12,17 +13,28 @@ const Container=styled.div`
     justify-content: space-between;
     padding: 0 50px;
     flex-direction:column;
-    
+    ${Mobile({
+      padding:'0',
+      height:'auto',
+    })}
 `
 const FirstCat=styled.div`
     flex:2;
     display:flex;
     flex-direction:row;
+    ${Mobile({
+      flexDirection:'column',
+      flex:'none'
+    })}
 `
 const SecondCat=styled.div`
     flex:1.5;
     display:flex;
     flex-direction:row;
+    ${Mobile({
+      flexDirection:'column',
+      flex:'none'
+    })}
 `
 export const Categories = () => {
   return (

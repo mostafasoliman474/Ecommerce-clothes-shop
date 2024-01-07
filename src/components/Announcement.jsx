@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import backgroundImg from '../asetess/hero4.png'
 import buttonImg from '../asetess/button.png'
+import { Mobile } from '../Responsive'
 const Container=styled.div`
     height: 100vh;
     width: 100%;
@@ -9,9 +10,14 @@ const Container=styled.div`
     background-size: cover;
     display: flex;
     align-items: center;
+    
 `
 const Wrapper=styled.div`
     margin-left: 200px;
+    ${Mobile({
+        margin:'0',
+        padding:"0px 10px"
+    })}
 `
 const Title=styled.p`
     margin-bottom: 10px;
@@ -55,11 +61,8 @@ export const Announcement = () => {
                 Save more with coupons & up to 70% off!
             </Title>
             <ButtonContainer>
-             
                 Shop Now
             </ButtonContainer>
-            
-           
         </Wrapper>
     </Container>
   )
