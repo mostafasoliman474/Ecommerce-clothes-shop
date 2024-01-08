@@ -6,6 +6,7 @@ import { RemoveCircleOutline } from '@mui/icons-material'
 import {Navbar} from '../components/Navbar'
 import {NewsLetter} from '../components/NewsLetter'
 import {Footer} from '../components/Footer'
+import { Mobile } from '../Responsive'
 const Container = styled.div`
     
 `
@@ -24,7 +25,6 @@ const Title = styled.h1`
     margin-top: 20px;
     margin-bottom: 10px;
 `
-
 const Desc = styled.p`
     opacity: .7;
 `
@@ -99,7 +99,10 @@ const TransactionContainer=styled.div`
     justify-content: space-between;
     margin-top: 30px;
     margin-bottom: 30px;
-    
+    ${Mobile({
+        flexDirection:'column'
+        ,gap:'20px'
+    })}
 `
 const CheckoutContainer=styled.div`
     

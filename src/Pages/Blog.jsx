@@ -6,6 +6,7 @@ import { BlogData } from '../Data'
 import { ArrowForward } from '@mui/icons-material'
 import { NewsLetter } from '../components/NewsLetter'
 import { Footer } from '../components/Footer'
+import { Mobile } from '../Responsive'
 
 const Container=styled.div`
 
@@ -39,6 +40,12 @@ const BlogContainer=styled.div`
     flex-direction: row;
     margin: auto;
     margin-top: 60px;
+    ${Mobile({
+        flexDirection:'column',
+        width:'auto',
+        height:'70vh',
+        padding:'0 20px'
+    })}
 `
 const ImgContainer=styled.div`
     flex: 1;

@@ -5,6 +5,7 @@ import { Navbar } from '../components/Navbar'
 
 import { AccessTimeOutlined, AttachEmailOutlined, ImportContactsOutlined, LocalPhoneOutlined } from '@mui/icons-material'
 import { PeopleSub } from '../Data'
+import { Mobile } from '../Responsive'
 const Container = styled.div`
     
 `
@@ -36,6 +37,9 @@ const InformationContainer = styled.div`
   width: 80%;
   margin-top: 50px;
   margin: 50px auto 0 auto;
+  ${Mobile({
+    flexDirection:'column'
+  })}
 `
 const SubTtile = styled.div`
   opacity: .7;
@@ -76,6 +80,10 @@ const SocialContainer = styled.div`
   border: 1px solid lightgray;
   padding: 50px;
   margin-bottom: 10px;
+  ${Mobile({
+    flexDirection:'column'
+    ,gap:'20px'
+  })}
 `
 const FormContainer = styled.form`
   flex:2;
@@ -109,6 +117,9 @@ const Button = styled.button`
   width: 20%;
   border-radius: 10px;
   cursor: pointer;
+  ${Mobile({
+    width:'auto'
+  })}
 `
 const Image = styled.img`
   width: 80px;

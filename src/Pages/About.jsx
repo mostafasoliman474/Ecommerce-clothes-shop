@@ -7,6 +7,7 @@ import { Navbar } from '../components/Navbar'
 import { NewsLetter } from '../components/NewsLetter'
 import { Footer } from '../components/Footer'
 import { Features } from '../components/Features'
+import { Mobile } from '../Responsive'
 
 const Container = styled.div`
     
@@ -35,6 +36,9 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 40px;
+  ${Mobile({
+    flexDirection:'column'
+  })}
 `
 const ImageContainer = styled.div`
   flex: 1;
@@ -94,6 +98,10 @@ const Video = styled.video`
   width: 60%;
   border-radius: 20px;
   margin-top: 20px;
+  ${Mobile({
+    width:'100%',
+    height:'60vh'
+  })}
   
 `
 const Source = styled.source`
