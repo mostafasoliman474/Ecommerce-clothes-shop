@@ -44,7 +44,8 @@ const BlogContainer=styled.div`
         flexDirection:'column',
         width:'auto',
         height:'70vh',
-        padding:'0 20px'
+        padding:'0 20px',
+        gap:'10px'
     })}
 `
 const ImgContainer=styled.div`
@@ -69,6 +70,11 @@ const InfoContainer=styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    ${Mobile({
+        justifyContent:'flex-start',
+        padding:'0',
+        
+    })}
 `
 const BlogTilte=styled.p`
     font-size: 25px;

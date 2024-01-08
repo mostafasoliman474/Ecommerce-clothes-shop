@@ -50,6 +50,9 @@ const InfoContainer = styled.div`
   flex: 1;
   padding-left: 30px;
   margin: 40px 0 0 0 ;
+  ${Mobile({
+    padding:'0'
+  })}
 `
 const HeadLine = styled.p`
   font-size: 30px;
