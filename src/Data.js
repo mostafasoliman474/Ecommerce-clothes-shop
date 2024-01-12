@@ -327,7 +327,7 @@ export const CartItems=[
     {
         id:1,
         selectedproduct:`${proImg2}`,
-        price:'100$',
+        price:150,
         prodeuctname:'cotton formal chemise',
         quantity:1
 
@@ -335,7 +335,7 @@ export const CartItems=[
     {
         id:2,
         selectedproduct:`${proImg3}`,
-        price:'110$',
+        price:300,
         prodeuctname:'cotton formal chemise',
         quantity:1
 
@@ -343,7 +343,7 @@ export const CartItems=[
     {
         id:3,
         selectedproduct:`${proImg4}`,
-        price:'120$',
+        price:80,
         prodeuctname:'cotton formal chemise',
         quantity:1
     },

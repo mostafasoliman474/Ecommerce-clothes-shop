@@ -1,4 +1,4 @@
-import { CloseOutlined, LocalMallOutlined, MenuOutlined, Search } from '@mui/icons-material'
+import { CloseOutlined, LocalMallOutlined, MenuOutlined } from '@mui/icons-material'
 import { Badge } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
@@ -29,6 +29,7 @@ const RightDesktop = styled.div`
   padding-left:40px;
   display:flex;
   justify-content: center;
+  align-items: center;
   ${Mobile({
   display: 'none'
 })}
@@ -123,7 +124,6 @@ const PopMenu = styled.div`
 
 export const Navbar = () => {
   const [toggle, setToggle] = useState(false);
-  console.log(toggle)
   return (
     <Container>
       <Wrapper>

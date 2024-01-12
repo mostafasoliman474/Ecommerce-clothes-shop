@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import banner from '../asetess/about/banner.png'
 import { CartItems } from '../Data'
 import { RemoveCircleOutline } from '@mui/icons-material'
 import {Navbar} from '../components/Navbar'
-import {NewsLetter} from '../components/NewsLetter'
+// import {NewsLetter} from '../components/NewsLetter'
 import {Footer} from '../components/Footer'
 import { Mobile } from '../Responsive'
 const Container = styled.div`
@@ -28,26 +28,26 @@ const Title = styled.h1`
 const Desc = styled.p`
     opacity: .7;
 `
-const CartContainer = styled.div`
-    width: 80%;
-    margin:auto;
-`
-const CartProduct = styled.div`
-   display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin: auto;
-    height: 15vh;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid lightgray;
-`
+// const CartContainer = styled.div`
+//     width: 80%;
+//     margin:auto;
+// `
+// const CartProduct = styled.div`
+//    display: flex;
+//     flex-direction: row;
+//     width: 100%;
+//     margin: auto;
+//     height: 15vh;
+//     justify-content: space-between;
+//     align-items: center;
+//     border-bottom: 1px solid lightgray;
+// `
 const SelectedProdImg = styled.img`
-    width: 8%;
+    width: 65%;
     border-radius: 5px;
 `
 const ProductName = styled.p`
-    
+    text-align: center;
 `
 const Quantity = styled.input`
     width: 100px;
@@ -57,20 +57,22 @@ const Quantity = styled.input`
     text-align: center;
 `
 const Price = styled.p`
-    
+    font-size: 20px;
+    font-weight: 800;
 `
 const Subtotal = styled.p`
-    
+    font-size: 20px;
+    font-weight: 800;
 `
 const CouponContainer=styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
 `
-const Headlines=styled.p`
-    font-weight: 700;
-    margin-bottom: 15px;
-`
+// const Headlines=styled.p`
+//     font-weight: 700;
+//     margin-bottom: 15px;
+// `
 const BigHeadlines=styled.h1`
     font-weight: 700;
     margin-bottom: 15px;
@@ -90,7 +92,6 @@ const Submit=styled.button`
     border-radius: 5px;
     cursor: pointer;
 `
-
 const TransactionContainer=styled.div`
     display: flex;
     flex-direction: row;
@@ -105,7 +106,6 @@ const TransactionContainer=styled.div`
     })}
 `
 const CheckoutContainer=styled.div`
-    
     flex: 1 1 0%;
     border: 3px solid black;
     padding: 10px 30px;
@@ -129,7 +129,6 @@ const Value=styled.div`
 const InputField=styled.div`
     display: flex;
     flex-direction: row;
-
 `
 const CheckOutBottom=styled.button`
     cursor: pointer;
@@ -139,10 +138,54 @@ const CheckOutBottom=styled.button`
     border-radius: 5px;
     height: 40px;
 `
+const CartTable=styled.table`
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 95%;
+    margin: auto;
+`
+const RowsTable=styled.tr`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: auto;
+    height: auto;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+    ${Mobile({
+        flexDirection:'column',
+        gap:'25px',
+        padding:'15px 0'
+    })}
+`
+const TableContentHeadlines=styled.th`
+    height: 70px;
+    display: flex;
+    align-items: center;
+    flex:1;
+    justify-content: center;
+    ${Mobile({
+        display:'none'
+    })}
+`
+const TableContent=styled.td`
+    height:180px;
+    display: flex;
+    align-items: center;
+    flex:1;
+    justify-content: center;
+    
+`
 
 export const Cart = () => {
-    const Delete=()=>{
-        
+    const [total, setTotal] = useState(1);
+    const handelChange=(e)=>{
+        const value=e.target.value;
+        setTotal(value)
     }
     return (
         <Container>
@@ -151,7 +194,40 @@ export const Cart = () => {
                 <Title>#Cart</Title>
                 <Desc>Add you coupon code & SAVE up to 70%!</Desc>
             </BannerContainer>
-            <CartContainer>
+            <CartTable>
+                <RowsTable>
+                    <TableContentHeadlines>Remove</TableContentHeadlines>
+                    <TableContentHeadlines>Image</TableContentHeadlines>
+                    <TableContentHeadlines>Product</TableContentHeadlines>
+                    <TableContentHeadlines>Price</TableContentHeadlines>
+                    <TableContentHeadlines>Quantity</TableContentHeadlines>
+                    <TableContentHeadlines>Subtotal</TableContentHeadlines>
+                </RowsTable>
+                {CartItems.map((item) => (
+                    <RowsTable key={item.id}>
+                        <TableContent>
+                            <RemoveCircleOutline style={{ 'cursor': 'pointer' }} />
+                        </TableContent>
+                        <TableContent>
+                            <SelectedProdImg src={item.selectedproduct} />
+                        </TableContent>
+                        <TableContent>
+                            <ProductName>{item.prodeuctname}</ProductName>
+                        </TableContent>
+                        <TableContent>
+                            <Price>{item.price}</Price>
+                        </TableContent>
+                        <TableContent>
+                            <Quantity min={1} defaultValue={item.quantity} onChange={handelChange}/>
+                        </TableContent>
+                        <TableContent>
+                            <Subtotal>{item.price * total} $</Subtotal>
+                        </TableContent>
+                    </RowsTable>
+                ))}
+                
+            </CartTable>
+            {/* <CartContainer>
                     <CartProduct>
                         <Headlines>Remove</Headlines>
                         <Headlines>Image</Headlines>
@@ -170,7 +246,7 @@ export const Cart = () => {
                         <Subtotal>100</Subtotal>
                     </CartProduct>
                 ))}
-            </CartContainer>
+            </CartContainer> */}
             <TransactionContainer>
                 <CouponContainer>
                     <BigHeadlines>Apply Coupon</BigHeadlines>
@@ -196,7 +272,6 @@ export const Cart = () => {
                     <CheckOutBottom type='submit' >Proceed to checkout</CheckOutBottom>
                 </CheckoutContainer>
             </TransactionContainer>
-            
            <Footer/>
         </Container>
     )
