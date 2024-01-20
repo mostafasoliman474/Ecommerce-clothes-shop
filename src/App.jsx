@@ -12,19 +12,25 @@ import Register from './Pages/Register'
 import { useSelector } from 'react-redux';
  const App = () => {
   const {currentUser}=useSelector(state=>state.user);
+  // const currentUser=true;
   return (
    <div className='App'>
     <Router>
       <Routes>
+
         <Route path='/' element={<Home />}></Route>
         <Route path='shop' element={<Shop />}></Route>
-        <Route path='productdetails' element={<ProductDetails />}></Route>
-        <Route path='blog' element={<Blog />}></Route>
-        <Route path='about' element={<About />}></Route>
-        <Route path='contactus' element={<Contactus />}></Route>
+        <Route path='shop/category' element={<Shop />}></Route>
+        <Route path='productdetails/:id' element={<ProductDetails />}></Route>
+        
         <Route path='cart' element={<Cart />}></Route>
         <Route path='register' element={currentUser?<Navigate to='/'></Navigate>:<Register />}></Route>
         <Route path='login' element={currentUser?<Navigate to='/'></Navigate>:<LogIn />}></Route>
+
+        <Route path='blog' element={<Blog />}></Route>
+        <Route path='about' element={<About />}></Route>
+        <Route path='contactus' element={<Contactus />}></Route>
+
       </Routes>
     </Router>
    </div>

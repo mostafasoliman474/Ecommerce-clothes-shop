@@ -123,9 +123,10 @@ const PopMenu = styled.div`
   
 `
 export const Navbar = () => {
+  const { quantity } =useSelector((state)=>state.cart);
   const {currentUser}=useSelector((state)=>state.user);
   const [toggle, setToggle] = useState(false);
-  console.log(currentUser)
+  console.log(quantity)
   return (
     <Container>
       <Wrapper>
@@ -135,41 +136,40 @@ export const Navbar = () => {
           </Link>
         </Left>
           {currentUser ?(
-
             <RightDesktop>
-          {/* {toggle } */}
-          <Link to='/' style={{ "color": "inherit" }}>
-            <Links>Home</Links>
-          </Link>
+            {/* {toggle } */}
+            <Link to='/' style={{ "color": "inherit" }}>
+              <Links>Home</Links>
+            </Link>
 
-          <Link to='/shop' style={{ "color": "inherit" }}>
-            <Links>Shop</Links>
-          </Link>
+            <Link to='/shop' style={{ "color": "inherit" }}>
+              <Links>Shop</Links>
+            </Link>
 
-          <Link to='/blog' style={{ "color": "inherit" }}>
-            <Links>Blog</Links>
-          </Link>
+            <Link to='/blog' style={{ "color": "inherit" }}>
+              <Links>Blog</Links>
+            </Link>
 
-          <Link to='/about' style={{ "color": "inherit" }}>
-            <Links>About</Links>
-          </Link>
+            <Link to='/about' style={{ "color": "inherit" }}>
+              <Links>About</Links>
+            </Link>
 
-          <Link to='/contactus' style={{ "color": "inherit" }}>
-            <Links>Contact</Links>
-          </Link>
+            <Link to='/contactus' style={{ "color": "inherit" }}>
+              <Links>Contact</Links>
+            </Link>
 
 
-          <Link to='/cart' style={{ "color": "inherit" }}>
-            <MenuItemCart name='cart'>
-              <Badge badgeContent={0} color="primary">
-                <LocalMallOutlined />
-              </Badge>
-            </MenuItemCart>
-          </Link>
-          <Link>
-            <Links to='/contactus' style={{ "color": "black" }}>{currentUser.username}</Links>
-          </Link>
-        </RightDesktop>
+            <Link to='/cart' style={{ "color": "inherit" }}>
+              <MenuItemCart name='cart'>
+                <Badge badgeContent={quantity} color="primary">
+                  <LocalMallOutlined />
+                </Badge>
+              </MenuItemCart>
+            </Link>
+            <Link>
+              <Links to='/contactus' style={{ "color": "black" }}>{currentUser.username}</Links>
+            </Link>
+          </RightDesktop>
           ):(
             <RightDesktop>
 

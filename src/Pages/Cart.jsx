@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import banner from '../asetess/about/banner.png'
-import { CartItems } from '../Data'
+// import { CartItems } from '../Data'
 import { RemoveCircleOutline } from '@mui/icons-material'
 import {Navbar} from '../components/Navbar'
 // import {NewsLetter} from '../components/NewsLetter'
 import {Footer} from '../components/Footer'
 import { Mobile } from '../Responsive'
+import { useSelector } from 'react-redux'
 const Container = styled.div`
     
 `
@@ -43,7 +44,8 @@ const Desc = styled.p`
 //     border-bottom: 1px solid lightgray;
 // `
 const SelectedProdImg = styled.img`
-    width: 65%;
+   
+    height: 98%;
     border-radius: 5px;
 `
 const ProductName = styled.p`
@@ -182,6 +184,7 @@ const TableContent=styled.td`
 `
 
 export const Cart = () => {
+    const {products,totalPrice}=useSelector((state)=>state.cart);
     const [total, setTotal] = useState(1);
     const handelChange=(e)=>{
         const value=e.target.value;
@@ -199,26 +202,30 @@ export const Cart = () => {
                     <TableContentHeadlines>Remove</TableContentHeadlines>
                     <TableContentHeadlines>Image</TableContentHeadlines>
                     <TableContentHeadlines>Product</TableContentHeadlines>
+                    <TableContentHeadlines>Color</TableContentHeadlines>
                     <TableContentHeadlines>Price</TableContentHeadlines>
                     <TableContentHeadlines>Quantity</TableContentHeadlines>
                     <TableContentHeadlines>Subtotal</TableContentHeadlines>
                 </RowsTable>
-                {CartItems.map((item) => (
+                {products.map((item) => (
                     <RowsTable key={item.id}>
                         <TableContent>
                             <RemoveCircleOutline style={{ 'cursor': 'pointer' }} />
                         </TableContent>
                         <TableContent>
-                            <SelectedProdImg src={item.selectedproduct} />
+                            <SelectedProdImg src={item.img} />
                         </TableContent>
                         <TableContent>
-                            <ProductName>{item.prodeuctname}</ProductName>
+                            <ProductName>{item.title}</ProductName>
                         </TableContent>
                         <TableContent>
-                            <Price>{item.price}</Price>
+                            <ProductName>{item.chooseColor}</ProductName>
                         </TableContent>
                         <TableContent>
-                            <Quantity min={1} defaultValue={item.quantity} onChange={handelChange}/>
+                            <Price>{item.price}$</Price>
+                        </TableContent>
+                        <TableContent>
+                            <Quantity min={1} defaultValue={item.chooseAmount} onChange={handelChange}/>
                         </TableContent>
                         <TableContent>
                             <Subtotal>{item.price * total} $</Subtotal>
@@ -259,7 +266,7 @@ export const Cart = () => {
                     <BigHeadlines>Cart Totals</BigHeadlines>
                     <CartContainers>
                         <ValueDesc>cart subtotal</ValueDesc>
-                        <Value>300$</Value>
+                        <Value>{totalPrice}$</Value>
                     </CartContainers>
                     <CartContainers>
                     <ValueDesc>shipping</ValueDesc>
@@ -267,7 +274,7 @@ export const Cart = () => {
                     </CartContainers>
                     <CartContainers>
                         <ValueDesc>total</ValueDesc>
-                        <Value>500$</Value>
+                        <Value>{totalPrice}$</Value>
                     </CartContainers>
                     <CheckOutBottom type='submit' >Proceed to checkout</CheckOutBottom>
                 </CheckoutContainer>

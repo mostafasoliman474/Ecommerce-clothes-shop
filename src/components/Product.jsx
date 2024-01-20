@@ -2,34 +2,33 @@ import { ShoppingCartOutlined, StarBorderOutlined } from '@mui/icons-material'
 import React from 'react'
 import styled from 'styled-components'
 import { Mobile } from '../Responsive'
+import { Link } from 'react-router-dom'
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 400px;
     border: 1px solid lightgray;
     border-radius: 20px;
     margin: 20px;
     transition:ease-out 70ms;
+    max-height: 490px;
     ${Mobile({
     width: '350px',
     height: '430px'
-})}
+    })}
     &:hover{
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-        
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;    
     }
 `
 const ImageContainer = styled.div`
     flex:1;
     height: 70%;
     display: flex;
-  
     justify-content: center;
     cursor: pointer;
 `
 const InfoContainer = styled.div`
-    height: 30%;
+    /* height: 25%; */
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -40,7 +39,6 @@ const Brand = styled.p`
     font-size: 12px;
     opacity:.7;
     margin-bottom: 3px;
-
 `
 const Image = styled.img`
     width: 100%;
@@ -57,8 +55,8 @@ const StarContainer = styled.div`
     margin-bottom: 3px;
 `
 const Price = styled.div`
-color: teal;
-font-weight: 700;
+    color: teal;
+    font-weight: 700;
 `
 const BannerFooter = styled.div`
     display: flex;
@@ -80,10 +78,13 @@ const CartContainer = styled.div`
     border-radius: 50%;
 `
 const PriceRateContainer = styled.div`
+    
 `
 export const Product = ({ item }) => {
     return (
         <Container>
+            <Link to={`/productdetails/${item._id}`}>
+
             <ImageContainer>
                 <Image src={item.img} />
             </ImageContainer>
@@ -99,13 +100,14 @@ export const Product = ({ item }) => {
                             <StarBorderOutlined style={{ color: 'black' }} />
                             <StarBorderOutlined style={{ color: 'black' }} />
                         </StarContainer>
-                        <Price>{item.price}</Price>
+                        <Price>{item.price}EGP</Price>
                     </PriceRateContainer>
                     <CartContainer>
                         <ShoppingCartOutlined />
                     </CartContainer>
                 </BannerFooter>
             </InfoContainer>
+            </Link>
         </Container>
     )
 }

@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Navbar } from '../components/Navbar'
 
 import { NewsLetter } from '../components/NewsLetter'
 import { NewArrival } from '../components/NewArrival'
-import { ViewProduct } from '../Data'
+// import { ViewProduct } from '../Data'
 import { Footer } from '../components/Footer'
+import { useLocation } from 'react-router-dom'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../redux/cartReducer'
 const Container = styled.div`
 
 `
@@ -24,69 +28,69 @@ const Left = styled.div`
   flex-direction: column;
   align-items: flex-end;
   padding: 0 10px;
-  height: 80%;
+  height: 100%;
   
 `
 const MainImg = styled.div`
-    width:75%;
+    width:60%;
     height: 80%;
-
     display: flex;
-    justify-content: flex-end;
     background-image: url(${props => props.src});
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
-    border-radius: 10px;
+    border-radius: 10px 10px 10px 10px ;
+    
 `
-const SecondaryImgContainer = styled.div`
-  display: flex;
-  flex-direction:row;
-  justify-content: space-between;
-  width: 75%;
-`
-const Image = styled.img`
-    width: 24%;
-    border-radius: 10px;
-    margin-top: 5px;
-    cursor: pointer;
-    &:hover{
-      border: 1px solid teal;
-      transition: ease-out 80ms;
-    }
-`
+// const SecondaryImgContainer = styled.div`
+//   display: flex;
+//   flex-direction:row;
+//   justify-content: space-between;
+//   width: 75%;
+// `
+// const Image = styled.img`
+//     width: 24%;
+//     border-radius: 10px;
+//     margin-top: 5px;
+//     cursor: pointer;
+//     &:hover{
+//       border: 1px solid teal;
+//       transition: ease-out 80ms;
+//     }
+// `
 const Right = styled.div`
-  flex: 1.4;
-  padding-left: 3rem;
+  flex: 1.2;
+  /* padding-left: 3rem; */
   display: flex;
   flex-direction: column;
   align-items: first baseline;
   margin: 20px 0 0 0 ;
 `
-const Department = styled.p`
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 20px;
-`
+// const Department = styled.p`
+//     font-weight: bold;
+//     font-size: 14px;
+//     margin-bottom: 20px;
+// `
 const ProductTitle = styled.p`
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 `
 const Price = styled.p`
     font-size: 22px;
     font-weight: bold;
     margin: 5px 0;
 `
-const SizeContainer = styled.select`
-  width: 100px;
+const OptionContainer = styled.select`
+  width: 115px;
   height: 30px;
   border: 1px solid lightgray;
   border-radius: 5px;
   padding: 3px;
   font-weight: 600;
   outline: none;
+  margin-bottom: ${props=>props.type==='color'&& '10px'};
 `
-const Size = styled.option`
+const Option = styled.option`
   
 `
 const AmountContainer = styled.div`
@@ -122,19 +126,51 @@ const ProductInfoTitle=styled.p`
 const ProductInfo = styled.p`
   width: 80%;
   color: #000000ba;
+  line-height: 1.75rem;
 `
 export const ProductDetails = (item) => {
-  const [selectedPhoto,setSelectedPhoto]=useState(0);
+
+  const [chooseColor, setChooseColor] = useState('')
+  const [chooseSize, setChooseSize] = useState('')
+  const [chooseAmount, setChooseAmount] = useState(1)
+
+  const location=useLocation();
+  const id =location.pathname.split("/")[2];
+  const [product,setProduct]=useState({});
+  const {title,img,price,size,inStock,color}=product;
+  const dispatch=useDispatch();
+
+ 
+  useEffect(()=>{
+    const getData=async()=>{
+      const res=await axios.get(`http://localhost:5000/api/product/find/${id}`)
+      setProduct(res.data)
+    }
+    getData();
+  },[location,id])
+  console.log({chooseColor,chooseSize,chooseAmount})
+  const handelClick=()=>{
+    dispatch(
+      addProduct(
+        {...product,
+          chooseSize,
+          chooseAmount,
+          chooseColor}
+        )
+    )
+  }
   return (
     <Container>
       <Navbar />
-      {ViewProduct.map((item) => (
+      {/* {ViewProduct.map((item) => (
         <ProductContainer>
           <Left>
-            <MainImg src={item.images[selectedPhoto].src} />
+            <MainImg src={item.img} />
+            item.images[selectedPhoto].src
             <SecondaryImgContainer>
               {item.images.map((item)=>(
-                <Image src={item.src} position="secondary" onClick={()=>setSelectedPhoto(item.index)}/>
+                <Image src={item.src} position="secondary" />
+                // onClick={()=>setSelectedPhoto(item.index)}
               ))}
             </SecondaryImgContainer>
           </Left>
@@ -157,7 +193,40 @@ export const ProductDetails = (item) => {
             <ProductInfo>{item.desc}</ProductInfo>
           </Right>
         </ProductContainer>
-      ))}
+      ))} */}
+      <ProductContainer>
+        <Left>
+        <MainImg src={img} />  
+        </Left>
+        <Right>
+          {/* <Department>{prodcut.department}</Department> */}
+          <ProductTitle>{title}</ProductTitle>
+          {inStock &&<ProductInfo>In Stock</ProductInfo>}
+          <Price>{price}$</Price>
+
+
+          <OptionContainer type='color' onChange={(e)=>setChooseColor(e.target.value)}>
+            <Option disabled selected>select color</Option>
+            {color?.map(item=>(
+              <Option value={item}>{item}</Option>
+            ))
+            }
+          </OptionContainer>
+          
+          <OptionContainer onChange={(e)=>setChooseSize(e.target.value)}>
+            <Option disabled selected>select size</Option>
+            {size?.map(item=>(
+              <Option value={item}>{item}</Option>
+            ))}
+          </OptionContainer>
+          <AmountContainer>
+            <Amount type='number' placeholder='0' min={0} onChange={(e)=>setChooseAmount(e.target.value)}/>
+            <AddCartButton onClick={handelClick}>Add to cart</AddCartButton>
+          </AmountContainer>
+          <ProductInfoTitle>Product Details</ProductInfoTitle>
+          <ProductInfo>Train like a professional. Relax like a champion. This football jersey shows off a clean, classic design with an adidas Badge of Sport on the chest. Moisture-absorbing AEROREADY will keep you dry and cool whether you're playing a kickabout in the park or enjoying a night out on the town. Made with 100% recycled materials, this product represents just one of our solutions to help end plastic waste.</ProductInfo>
+        </Right>
+      </ProductContainer>
       <NewArrival />
       <NewsLetter />
       <Footer />

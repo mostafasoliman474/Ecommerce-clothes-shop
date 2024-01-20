@@ -21,7 +21,7 @@ const Title=styled.p`
 const Desc=styled.h1`
     color:white;
     margin-bottom: 20px;
-    font-size: x-large;
+    text-align:center;
     ${Mobile({
       fontSize:'18px'
     })}

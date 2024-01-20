@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Navbar } from '../components/Navbar'
 import bcImg from '../asetess/banner/b1.jpg'
@@ -7,9 +7,9 @@ import { Product } from '../components/Product'
 import { NewsLetter } from '../components/NewsLetter'
 import { Footer } from '../components/Footer'
 import { ArrowForward } from '@mui/icons-material'
+import axios from 'axios'
 const Container=styled.div`
     
-   
 `
 const Banner=styled.div`
     height: 45vh;
@@ -55,6 +55,20 @@ const Squer=styled.div`
     font-weight: 800;
 `
 export const Shop = () => {
+    const [products, setProducts] = useState([])
+    useEffect(()=>{
+        const getData=async()=>{
+
+            try {
+                const res=await axios.get('http://localhost:5000/api/product')
+                setProducts(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getData();
+    },[])
+    console.log(products)
   return (
     <Container>
         <Navbar/>
@@ -63,12 +77,12 @@ export const Shop = () => {
             <Desc>Save more with coupons & up to 70% off!</Desc>
         </Banner>
         <ProductView>
-            {ProductItem.map((item)=>(
+            {products.map((item)=>(
                 <Product item={item}/>
             ))}
-            {NewArrivalItems.map((item)=>(
+            {/* {NewArrivalItems.map((item)=>(
                 <Product item={item}/>
-            ))}
+            ))} */}
         </ProductView>
         <SwapContainer>
             <Squer>1</Squer>
