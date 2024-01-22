@@ -148,7 +148,7 @@ export const ProductDetails = (item) => {
     }
     getData();
   },[location,id])
-  console.log({chooseColor,chooseSize,chooseAmount})
+  // console.log({chooseColor,chooseSize,chooseAmount})
   const handelClick=()=>{
     dispatch(
       addProduct(
@@ -208,7 +208,7 @@ export const ProductDetails = (item) => {
           <OptionContainer type='color' onChange={(e)=>setChooseColor(e.target.value)}>
             <Option disabled selected>select color</Option>
             {color?.map(item=>(
-              <Option value={item}>{item}</Option>
+              <Option value={item} key={item}>{item}</Option>
             ))
             }
           </OptionContainer>
@@ -216,7 +216,7 @@ export const ProductDetails = (item) => {
           <OptionContainer onChange={(e)=>setChooseSize(e.target.value)}>
             <Option disabled selected>select size</Option>
             {size?.map(item=>(
-              <Option value={item}>{item}</Option>
+              <Option value={item} key={item}>{item}</Option>
             ))}
           </OptionContainer>
           <AmountContainer>

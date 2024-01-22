@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { NewArrivalItems } from '../Data'
+// import { NewArrivalItems } from '../Data'
 
 import { Product } from './Product'
 import { Link } from 'react-router-dom'

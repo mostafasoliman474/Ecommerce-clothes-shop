@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import banner from '../asetess/about/banner.png'
 // import { CartItems } from '../Data'
 import { RemoveCircleOutline } from '@mui/icons-material'
-import {Navbar} from '../components/Navbar'
+import { Navbar } from '../components/Navbar'
 // import {NewsLetter} from '../components/NewsLetter'
-import {Footer} from '../components/Footer'
+import { Footer } from '../components/Footer'
 import { Mobile } from '../Responsive'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import StripeCheckout from 'react-stripe-checkout'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { resetCart } from '../redux/cartReducer'
+
 const Container = styled.div`
     
 `
@@ -47,6 +52,9 @@ const SelectedProdImg = styled.img`
    
     height: 98%;
     border-radius: 5px;
+    ${Mobile({
+    width: '50%'
+})}
 `
 const ProductName = styled.p`
     text-align: center;
@@ -66,7 +74,7 @@ const Subtotal = styled.p`
     font-size: 20px;
     font-weight: 800;
 `
-const CouponContainer=styled.div`
+const CouponContainer = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -75,18 +83,18 @@ const CouponContainer=styled.div`
 //     font-weight: 700;
 //     margin-bottom: 15px;
 // `
-const BigHeadlines=styled.h1`
+const BigHeadlines = styled.h1`
     font-weight: 700;
     margin-bottom: 15px;
 `
-const Coupon=styled.input`
+const Coupon = styled.input`
     border: 1px solid lightgray;
     padding-left: 5px;
     margin-right: 10px;
     border-radius: 5px;
     width: 50%;
 `
-const Submit=styled.button`
+const Submit = styled.button`
     width: 100px;
     height: 40px;
     color:white;
@@ -94,7 +102,7 @@ const Submit=styled.button`
     border-radius: 5px;
     cursor: pointer;
 `
-const TransactionContainer=styled.div`
+const TransactionContainer = styled.div`
     display: flex;
     flex-direction: row;
     width: 80%;
@@ -103,11 +111,11 @@ const TransactionContainer=styled.div`
     margin-top: 30px;
     margin-bottom: 30px;
     ${Mobile({
-        flexDirection:'column'
-        ,gap:'20px'
-    })}
+    flexDirection: 'column'
+    , gap: '20px'
+})}
 `
-const CheckoutContainer=styled.div`
+const CheckoutContainer = styled.div`
     flex: 1 1 0%;
     border: 3px solid black;
     padding: 10px 30px;
@@ -115,24 +123,24 @@ const CheckoutContainer=styled.div`
     flex-direction: column;
     height: 40vh;
 `
-const CartContainers=styled.div`
+const CartContainers = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     border-bottom: 1px solid lightgray;
     margin-bottom: 20px;
 `
-const ValueDesc=styled.div`
+const ValueDesc = styled.div`
 
 `
-const Value=styled.div`
+const Value = styled.div`
 
 `
-const InputField=styled.div`
+const InputField = styled.div`
     display: flex;
     flex-direction: row;
 `
-const CheckOutBottom=styled.button`
+const CheckOutBottom = styled.button`
     cursor: pointer;
     width: 70%;
     color: white;
@@ -140,7 +148,7 @@ const CheckOutBottom=styled.button`
     border-radius: 5px;
     height: 40px;
 `
-const CartTable=styled.table`
+const CartTable = styled.table`
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
@@ -150,7 +158,7 @@ const CartTable=styled.table`
     width: 95%;
     margin: auto;
 `
-const RowsTable=styled.tr`
+const RowsTable = styled.tr`
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -159,22 +167,22 @@ const RowsTable=styled.tr`
     align-items: center;
     border-bottom: 1px solid lightgray;
     ${Mobile({
-        flexDirection:'column',
-        gap:'25px',
-        padding:'15px 0'
-    })}
+    flexDirection: 'column',
+    gap: '25px',
+    padding: '15px 0'
+})}
 `
-const TableContentHeadlines=styled.th`
+const TableContentHeadlines = styled.th`
     height: 70px;
     display: flex;
     align-items: center;
     flex:1;
     justify-content: center;
     ${Mobile({
-        display:'none'
-    })}
+    display: 'none'
+})}
 `
-const TableContent=styled.td`
+const TableContent = styled.td`
     height:180px;
     display: flex;
     align-items: center;
@@ -184,15 +192,43 @@ const TableContent=styled.td`
 `
 
 export const Cart = () => {
-    const {products,totalPrice}=useSelector((state)=>state.cart);
+    const APIKEY = 'pk_test_51OIBXGGTHVRNZlBtU9bwqUW1Df0CIMl0TTBm9aYZ3vQWSgf4NeU5iYyjEK760Dj94hGgbbqc0t2V467iiDvRL0pq00HAYvCfeR'
+    const [stripeToken, setStripeToken] = useState('')
+    const { products, totalPrice } = useSelector((state) => state.cart);
     const [total, setTotal] = useState(1);
-    const handelChange=(e)=>{
-        const value=e.target.value;
+    const dispatch=useDispatch();
+    const navigate=useNavigate();
+    const handelChange = (e) => {
+        const value = e.target.value;
         setTotal(value)
     }
+    
+    const onToken = (token) => {
+        setStripeToken(token)
+    }
+    useEffect(() => {
+        try {
+
+            const getData = async () => {
+                const res = await axios.post("http://localhost:5000/api/checkout/payment", {
+                    tokenId: stripeToken.id,
+                    amount: totalPrice * 100
+                });
+                dispatch(resetCart())
+                navigate('/success', { state: { data: res.data } })
+               
+            }
+            stripeToken && getData();
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+        , [stripeToken, totalPrice,navigate,dispatch])
+
     return (
         <Container>
-            <Navbar/>
+            <Navbar />
             <BannerContainer>
                 <Title>#Cart</Title>
                 <Desc>Add you coupon code & SAVE up to 70%!</Desc>
@@ -225,40 +261,19 @@ export const Cart = () => {
                             <Price>{item.price}$</Price>
                         </TableContent>
                         <TableContent>
-                            <Quantity min={1} defaultValue={item.chooseAmount} onChange={handelChange}/>
+                            <Quantity min={1} defaultValue={item.chooseAmount} onChange={handelChange} />
                         </TableContent>
                         <TableContent>
                             <Subtotal>{item.price * total} $</Subtotal>
                         </TableContent>
                     </RowsTable>
                 ))}
-                
             </CartTable>
-            {/* <CartContainer>
-                    <CartProduct>
-                        <Headlines>Remove</Headlines>
-                        <Headlines>Image</Headlines>
-                        <Headlines>Product</Headlines>
-                        <Headlines>Price</Headlines>
-                        <Headlines>Quantity</Headlines>
-                        <Headlines>Subtotal</Headlines>
-                    </CartProduct>
-                {CartItems.map((item) => (
-                    <CartProduct>
-                        <RemoveCircleOutline style={{ 'cursor': 'pointer' }} />
-                        <SelectedProdImg src={item.selectedproduct} />
-                        <ProductName>{item.prodeuctname}</ProductName>
-                        <Price>{item.price}</Price>
-                        <Quantity min={1} defaultValue={item.quantity} />
-                        <Subtotal>100</Subtotal>
-                    </CartProduct>
-                ))}
-            </CartContainer> */}
             <TransactionContainer>
                 <CouponContainer>
                     <BigHeadlines>Apply Coupon</BigHeadlines>
                     <InputField>
-                        <Coupon type='text' placeholder='Enter your Coupon'/>
+                        <Coupon type='text' placeholder='Enter your Coupon' />
                         <Submit type='submit'>Submit</Submit>
                     </InputField>
                 </CouponContainer>
@@ -269,17 +284,29 @@ export const Cart = () => {
                         <Value>{totalPrice}$</Value>
                     </CartContainers>
                     <CartContainers>
-                    <ValueDesc>shipping</ValueDesc>
+                        <ValueDesc>shipping</ValueDesc>
                         <Value>Free</Value>
                     </CartContainers>
                     <CartContainers>
                         <ValueDesc>total</ValueDesc>
                         <Value>{totalPrice}$</Value>
                     </CartContainers>
-                    <CheckOutBottom type='submit' >Proceed to checkout</CheckOutBottom>
+                    <StripeCheckout
+                        key={1}
+                        billingAddress
+                        image='https://www.sdeyildizelektrik.com/Upload/Dosyalar/resim-png/cata-aydinlatma-fiyatlari-9da3540e-c74d-43f7-ae01-f741d96dec79.png?width=1200&format=webx&quality=80&overlay=varlik-8-60d5d6c6-78c3-45b8-8348-95c5f234a502.png&overlay.opacity=0'
+                        token={onToken}
+                        stripeKey={APIKEY}
+                        shippingAddress
+                        amount={totalPrice * 100}
+                        name='CATA'
+                        description={`your total is $${totalPrice}`}
+                    >
+                        <CheckOutBottom type='submit' >Proceed to checkout</CheckOutBottom>
+                    </StripeCheckout>
                 </CheckoutContainer>
             </TransactionContainer>
-           <Footer/>
+            <Footer />
         </Container>
     )
 }

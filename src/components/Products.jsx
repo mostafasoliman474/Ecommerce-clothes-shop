@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { ProductItem } from '../Data'
+// import { ProductItem } from '../Data'
 import { Product } from './Product'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 const Container = styled.div`
@@ -56,7 +56,7 @@ export const Products = () => {
   //     )
   //   },[myProduct,currentUser]
   // )
-  console.log(myProduct,'all product')
+  // console.log(myProduct,'all product')
   // console.log(filteredProduct,'filteredproduct')
   return (
     <Container>
