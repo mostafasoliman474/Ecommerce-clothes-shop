@@ -45,7 +45,7 @@ const Image = styled.img`
     border-radius:  30px ;
     padding:  10px 10px;
 `
-const Desc = styled.div`
+const Desc = styled.p`
     font-weight: 700;
     font-size: 16px;
     margin-bottom: 3px;
@@ -54,9 +54,10 @@ const Desc = styled.div`
 const StarContainer = styled.div`
     margin-bottom: 3px;
 `
-const Price = styled.div`
+const Price = styled.p`
     color: teal;
     font-weight: 700;
+    text-decoration: none;
 `
 const BannerFooter = styled.div`
     display: flex;
@@ -83,14 +84,14 @@ const PriceRateContainer = styled.div`
 export const Product = ({ item }) => {
     return (
         <Container>
-            <Link to={`/productdetails/${item._id}`}>
+            <Link to={`/productdetails/${item._id}`} style={{textDecoration:'none'}}>
 
             <ImageContainer>
                 <Image src={item.img} />
             </ImageContainer>
             <InfoContainer>
-                <Brand>{item.brand}</Brand>
-                <Desc>{item.desc}</Desc>
+                <Brand >{item.brand}</Brand>
+                <Desc >{item.desc}</Desc>
                 <BannerFooter>
                     <PriceRateContainer>
                         <StarContainer>

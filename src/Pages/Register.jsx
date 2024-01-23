@@ -1,7 +1,10 @@
 
 import styled from 'styled-components'
 import { Mobile } from '../Responsive'
-
+import { useDispatch} from "react-redux"
+import { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 const Container=styled.div`
 width: 100vw;
 height: 100vh;
@@ -85,6 +88,22 @@ const Button=styled.button`
 `
 
 const Register = () => {
+  const [username, setUserName] = useState('')
+  const [email, setEmial] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmation, setConfirmation] = useState('')
+  const navigate=useNavigate();
+  const created=null;
+  const dispatch=useDispatch();
+  
+  const handelClick=async()=>{
+    try {
+      const res=await axios.post('http://localhost:5000/api/auth/register',{username,email,password});
+      res && navigate('/login',{state:{data:res.data}})
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <Container>
         <Wrapper>
@@ -92,15 +111,15 @@ const Register = () => {
           <Form>
               <Input placeholder='First Name'/>
               <Input placeholder='Last Name'/>
-              <Input placeholder='UserName'/>
-              <Input placeholder='Email'/>
-              <Input placeholder='Password'/>
-              <Input placeholder='Confirm Password'/>
+              <Input placeholder='UserName' onChange={(e)=>setUserName(e.target.value)}/>
+              <Input placeholder='Email' onChange={(e)=>setEmial(e.target.value)}/>
+              <Input placeholder='Password' onChange={(e)=>setPassword(e.target.value)}/>
+              <Input placeholder='Confirm Password' onChange={(e)=>setConfirmation(e.target.value)}/>
               <Agreement>
                   By creating an account, I consent to the processing of my personal
                   data in accordance with the <b>PRIVACY POLICY</b>
               </Agreement>
-              <Button>CREATE</Button>
+              <Button onClick={handelClick}>CREATE</Button>
           </Form>
         </Wrapper>
     </Container>

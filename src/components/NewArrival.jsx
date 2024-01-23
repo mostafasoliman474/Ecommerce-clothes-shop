@@ -33,7 +33,7 @@ export const NewArrival = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/product?category=new-arrival");
+        const res = await axios.get("https://backendserver-xw5l.onrender.com/api/product?category=new-arrival");
         setProduct(res.data)
 
       } catch (error) {

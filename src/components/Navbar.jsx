@@ -126,7 +126,8 @@ export const Navbar = () => {
   const { quantity } =useSelector((state)=>state.cart);
   const {currentUser}=useSelector((state)=>state.user);
   const [toggle, setToggle] = useState(false);
-  // console.log(quantity)
+
+  console.log(currentUser)
   return (
     <Container>
       <Wrapper>
