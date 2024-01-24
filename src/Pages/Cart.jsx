@@ -210,7 +210,7 @@ export const Cart = () => {
         try {
 
             const getData = async () => {
-                const res = await axios.post("http://localhost:5000/api/checkout/payment", {
+                const res = await axios.post("https://backendserver-xw5l.onrender.com/api/checkout/payment", {
                     tokenId: stripeToken.id,
                     amount: totalPrice * 100
                 });
@@ -301,6 +301,7 @@ export const Cart = () => {
                         amount={totalPrice * 100}
                         name='CATA'
                         description={`your total is $${totalPrice}`}
+                        
                     >
                         <CheckOutBottom type='submit' >Proceed to checkout</CheckOutBottom>
                     </StripeCheckout>

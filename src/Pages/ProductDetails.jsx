@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { addProduct } from '../redux/cartReducer'
+import { Mobile } from '../Responsive'
 const Container = styled.div`
 
 `
@@ -20,7 +21,13 @@ const ProductContainer = styled.div`
   display: flex;
   flex-direction:row;
   padding-top: 100px;
-
+  ${Mobile({
+    flexDirection:'column',
+    alignItems:'center',
+    height: '120vh',
+    textAlign:'center'
+  })}
+  
 `
 const Left = styled.div`
   flex: 1;
@@ -64,6 +71,9 @@ const Right = styled.div`
   flex-direction: column;
   align-items: first baseline;
   margin: 20px 0 0 0 ;
+  ${Mobile({
+    alignItems:'center'
+  })}
 `
 // const Department = styled.p`
 //     font-weight: bold;
@@ -100,6 +110,11 @@ const AmountContainer = styled.div`
     width: 200px;
     
     margin: 10px 0;
+    ${Mobile({
+      flexDirection:'column',
+      gap:'20px',
+
+    })}
 `
 const Amount = styled.input`
     width: 60px;
@@ -110,6 +125,11 @@ const Amount = styled.input`
     border-radius: 5px;
     outline: none;
     margin: 0 10px 0 0 ;
+    ${Mobile({
+      textAlign:'center',
+      padding:'0'
+      
+    })}
 `
 const AddCartButton = styled.button`
   color: white;

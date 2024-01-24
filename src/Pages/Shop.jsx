@@ -60,7 +60,7 @@ export const Shop = () => {
         const getData=async()=>{
 
             try {
-                const res=await axios.get('http://localhost:5000/api/product')
+                const res=await axios.get('https://backendserver-xw5l.onrender.com/api/product')
                 setProducts(res.data)
             } catch (error) {
                 console.log(error)

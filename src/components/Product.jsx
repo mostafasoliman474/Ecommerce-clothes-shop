@@ -13,8 +13,8 @@ const Container = styled.div`
     transition:ease-out 70ms;
     max-height: 490px;
     ${Mobile({
-    width: '350px',
-    height: '430px'
+    // width: '350px',
+    // height: '430px'
     })}
     &:hover{
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;    
