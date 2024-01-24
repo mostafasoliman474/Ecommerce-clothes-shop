@@ -163,7 +163,7 @@ export const ProductDetails = (item) => {
  
   useEffect(()=>{
     const getData=async()=>{
-      const res=await axios.get(`http://localhost:5000/api/product/find/${id}`)
+      const res=await axios.get(`https://backendserver-xw5l.onrender.com/api/product/find/${id}`)
       setProduct(res.data)
     }
     getData();
