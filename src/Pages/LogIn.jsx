@@ -41,6 +41,7 @@ const Form=styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 10px ;
 `
 const Input=styled.input`
     flex: 1;
@@ -77,7 +78,6 @@ const Button=styled.button`
 `
 
 const Navigate=styled.a`
-    text-decoration: underline;
     margin-top: 5px;
     letter-spacing: 1px;
     cursor: pointer;
@@ -88,6 +88,7 @@ const ErrorMassage=styled.p`
 `
 
 const LogIn = () => {
+    
     const {isFetching,error}=useSelector((state)=>state.user)
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -109,7 +110,7 @@ const LogIn = () => {
                 {error && <ErrorMassage>Something went wrong!!</ErrorMassage>}
                 {/* onClick={handelClick} */}
                 <Navigate>Forgotten password?</Navigate>
-                <Link to='/register'>
+                <Link to='/register' style={{textDecoration:'none',color:'#000000'}}>
                 <Navigate >Create New Account</Navigate>
                 </Link>
                 

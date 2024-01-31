@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import backgroundImg from '../asetess/hero4.png'
 import buttonImg from '../asetess/button.png'
 import { Mobile } from '../Responsive'
+import { Link } from 'react-router-dom'
 const Container=styled.div`
     height: 100vh;
     width: 100%;
@@ -61,7 +62,9 @@ export const Announcement = () => {
                 Save more with coupons & up to 70% off!
             </Title>
             <ButtonContainer>
-                Shop Now
+                <Link to='/shop' style={{color:'inherit',textDecoration:'none'}}>
+                    Shop Now
+                </Link>
             </ButtonContainer>
         </Wrapper>
     </Container>

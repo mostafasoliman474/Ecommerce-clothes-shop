@@ -11,8 +11,11 @@ import LogIn from './Pages/LogIn'
 import Register from './Pages/Register'
 import { useSelector } from 'react-redux';
 import Seccess from './Pages/Success';
+// import dotenv from 'dotenv'
+// dotenv.config()
  const App = () => {
   const {currentUser}=useSelector(state=>state.user);
+  console.log(process.env.var)
   // const currentUser=true;
   return (
    <div className='App'>
