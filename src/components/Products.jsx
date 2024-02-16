@@ -35,7 +35,7 @@ export const Products = () => {
   useEffect(()=>{
     const getData=async()=>{
       try {
-        const res=await axios.get("https://backendserver-xw5l.onrender.com/api/product?category=featured-product");
+        const res=await axios.get(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/product?category=featured-product`);
         setProduct(res.data)
         
       } catch (error) {

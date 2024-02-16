@@ -17,9 +17,12 @@ const userSlice = createSlice({
         connectionFailure:(state)=>{
             state.isFetching=false
             state.error=true
+        },
+        logout:(state)=>{
+          state.currentUser=null
         }
       }
 })
 
-export const {connectionStart,connectionSuccess,connectionFailure}=userSlice.actions;
+export const {connectionStart,connectionSuccess,connectionFailure,logout}=userSlice.actions;
 export default userSlice.reducer;

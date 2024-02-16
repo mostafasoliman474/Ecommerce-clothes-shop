@@ -8,7 +8,7 @@ import { NewArrival } from '../components/NewArrival'
 import { Footer } from '../components/Footer'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addProduct } from '../redux/cartReducer'
 import { Mobile } from '../Responsive'
 const Container = styled.div`
@@ -16,17 +16,18 @@ const Container = styled.div`
 `
 
 const ProductContainer = styled.div`
-  height: 100vh;
+  height: auto;
   width: 100%;
   display: flex;
   flex-direction:row;
   padding-top: 100px;
+  
   ${Mobile({
-    flexDirection:'column',
-    alignItems:'center',
-    height: '120vh',
-    textAlign:'center'
-  })}
+  flexDirection: 'column',
+  alignItems: 'center',
+  // height: '120vh',
+  textAlign: 'center'
+})}
   
 `
 const Left = styled.div`
@@ -34,19 +35,25 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  padding: 0 10px;
-  height: 100%;
-  
+  padding-right: 3rem;
+  height: 100%; 
+  ${Mobile({
+    alignItems:"center",
+    padding: "0",
+
+
+  })} 
 `
-const MainImg = styled.div`
-    width:60%;
-    height: 80%;
+const MainImg = styled.img`
+    width:55%;
     display: flex;
     background-image: url(${props => props.src});
     background-size: contain;
     background-repeat: no-repeat;
     border-radius: 10px 10px 10px 10px ;
-    
+    ${Mobile({
+      width:"90%"
+    })}
 `
 // const SecondaryImgContainer = styled.div`
 //   display: flex;
@@ -65,15 +72,15 @@ const MainImg = styled.div`
 //     }
 // `
 const Right = styled.div`
-  flex: 1.2;
+  flex: 1.5;
   /* padding-left: 3rem; */
   display: flex;
   flex-direction: column;
   align-items: first baseline;
   margin: 20px 0 0 0 ;
   ${Mobile({
-    alignItems:'center'
-  })}
+  alignItems: 'center'
+})}
 `
 // const Department = styled.p`
 //     font-weight: bold;
@@ -98,7 +105,7 @@ const OptionContainer = styled.select`
   padding: 3px;
   font-weight: 600;
   outline: none;
-  margin-bottom: ${props=>props.type==='color'&& '10px'};
+  margin-bottom: ${props => props.type === 'color' && '10px'};
 `
 const Option = styled.option`
   
@@ -111,10 +118,10 @@ const AmountContainer = styled.div`
     
     margin: 10px 0;
     ${Mobile({
-      flexDirection:'column',
-      gap:'20px',
+  flexDirection: 'column',
+  gap: '20px',
 
-    })}
+})}
 `
 const Amount = styled.input`
     width: 60px;
@@ -126,10 +133,10 @@ const Amount = styled.input`
     outline: none;
     margin: 0 10px 0 0 ;
     ${Mobile({
-      textAlign:'center',
-      padding:'0'
-      
-    })}
+  textAlign: 'center',
+  padding: '0'
+
+})}
 `
 const AddCartButton = styled.button`
   color: white;
@@ -138,7 +145,7 @@ const AddCartButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `
-const ProductInfoTitle=styled.p`
+const ProductInfoTitle = styled.p`
   font-size: 20px;
   margin:20px 0 ;
   font-weight: bold;
@@ -149,34 +156,33 @@ const ProductInfo = styled.p`
   line-height: 1.75rem;
 `
 export const ProductDetails = (item) => {
-
+  const { products } = useSelector((state) => state.cart);
   const [chooseColor, setChooseColor] = useState('')
   const [chooseSize, setChooseSize] = useState('')
   const [chooseAmount, setChooseAmount] = useState(1)
-
-  const location=useLocation();
-  const id =location.pathname.split("/")[2];
-  const [product,setProduct]=useState({});
-  const {title,img,price,size,inStock,color}=product;
-  const dispatch=useDispatch();
-
- 
-  useEffect(()=>{
-    const getData=async()=>{
-      const res=await axios.get(`https://backendserver-xw5l.onrender.com/api/product/find/${id}`)
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+  const { title, img, price, size, inStock, color } = product;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const getData = async () => {
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/product/find/${id}`)
       setProduct(res.data)
     }
     getData();
-  },[location,id])
+  }, [location, id])
   // console.log({chooseColor,chooseSize,chooseAmount})
-  const handelClick=()=>{
+  const handelClick = () => {
     dispatch(
       addProduct(
-        {...product,
+        {
+          ...product,
           chooseSize,
           chooseAmount,
-          chooseColor}
-        )
+          chooseColor
+        }
+      )
     )
   }
   return (
@@ -216,31 +222,31 @@ export const ProductDetails = (item) => {
       ))} */}
       <ProductContainer>
         <Left>
-        <MainImg src={img} />  
+          <MainImg src={img} />
         </Left>
         <Right>
           {/* <Department>{prodcut.department}</Department> */}
           <ProductTitle>{title}</ProductTitle>
-          {inStock &&<ProductInfo>In Stock</ProductInfo>}
+          {inStock && <ProductInfo>In Stock</ProductInfo>}
           <Price>{price}$</Price>
 
 
-          <OptionContainer type='color' onChange={(e)=>setChooseColor(e.target.value)}>
+          <OptionContainer type='color' onChange={(e) => setChooseColor(e.target.value)}>
             <Option disabled selected>select color</Option>
-            {color?.map(item=>(
+            {color?.map(item => (
               <Option value={item} key={item}>{item}</Option>
             ))
             }
           </OptionContainer>
-          
-          <OptionContainer onChange={(e)=>setChooseSize(e.target.value)}>
+
+          <OptionContainer onChange={(e) => setChooseSize(e.target.value)} >
             <Option disabled selected>select size</Option>
-            {size?.map(item=>(
+            {size?.map(item => (
               <Option value={item} key={item}>{item}</Option>
             ))}
           </OptionContainer>
           <AmountContainer>
-            <Amount type='number' placeholder='0' min={0} onChange={(e)=>setChooseAmount(e.target.value)}/>
+            <Amount type='number' placeholder='0' min={0} onChange={(e) => setChooseAmount(e.target.value)} />
             <AddCartButton onClick={handelClick}>Add to cart</AddCartButton>
           </AmountContainer>
           <ProductInfoTitle>Product Details</ProductInfoTitle>

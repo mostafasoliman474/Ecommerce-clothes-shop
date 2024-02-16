@@ -53,7 +53,9 @@ const Input=styled.input`
     border: 1px solid lightgray;
     outline: none;
     font-weight: 400;
-    font-size: 18px;`
+    font-size: 18px;
+    border-radius:10px;
+`
 
 const Button=styled.button`
     width: 40%;
@@ -104,8 +106,8 @@ const LogIn = () => {
         <Wrapper>
             <Title>SIGN IN</Title>
             <Form>
-                <Input placeholder='UserName' type="text" onChange={(e)=>setUsername(e.target.value)}/>
-                <Input placeholder='Password' type="password" onChange={(e)=>setPassword(e.target.value)}/>
+                <Input placeholder='user name' type="text" onChange={(e)=>setUsername(e.target.value)}/>
+                <Input placeholder='password' type="password" onChange={(e)=>setPassword(e.target.value)}/>
                 <Button onClick={handelClick} disabled={isFetching}>LOGIN</Button>
                 {error && <ErrorMassage>Something went wrong!!</ErrorMassage>}
                 {/* onClick={handelClick} */}

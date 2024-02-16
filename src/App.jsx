@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {BrowserRouter as Router, Routes,Route,Navigate} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { Home } from './Pages/Home'
 import { Shop } from './Pages/Shop';
 import { ProductDetails } from './Pages/ProductDetails';
@@ -11,35 +11,30 @@ import LogIn from './Pages/LogIn'
 import Register from './Pages/Register'
 import { useSelector } from 'react-redux';
 import Seccess from './Pages/Success';
-// import dotenv from 'dotenv'
-// dotenv.config()
- const App = () => {
-  const {currentUser}=useSelector(state=>state.user);
-  console.log(process.env.var)
-  // const currentUser=true;
+import Account from './Pages/Account';
+
+const App = () => {
+  console.log(process.env.REACT_APP_API_KEY)
+  const { currentUser } = useSelector(state => state.user);
   return (
-   <div className='App'>
-    <Router>
-      <Routes>
-
-        <Route path='/' element={<Home />}></Route>
-        <Route path='shop' element={<Shop />}></Route>
-        <Route path='shop/category' element={<Shop />}></Route>
-        <Route path='productdetails/:id' element={<ProductDetails />}></Route>
-        
-        <Route path='cart' element={<Cart />}></Route>
-        <Route path='register' element={currentUser?<Navigate to='/'></Navigate>:<Register />}></Route>
-        <Route path='login' element={currentUser?<Navigate to='/'></Navigate>:<LogIn />}></Route>
-
-        <Route path='blog' element={<Blog />}></Route>
-        <Route path='about' element={<About />}></Route>
-        <Route path='contactus' element={<Contactus />}></Route>
-
-        <Route path='success' element={<Seccess />}></Route>
-
-      </Routes>
-    </Router>
-   </div>
+    <div className='App'>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='shop' element={<Shop />} />
+          <Route path='shop/category' element={<Shop />} />
+          <Route path='productdetails/:id' element={<ProductDetails />} />
+          <Route path='cart' element={<Cart />} />
+          <Route path='register' element={currentUser ? <Navigate to='/'></Navigate> : <Register />} />
+          <Route path='login' element={currentUser ? <Navigate to='/'></Navigate> : <LogIn />} />
+          <Route path='blog' element={<Blog />} />
+          <Route path='about' element={<About />} />
+          <Route path='contactus' element={<Contactus />} />
+          <Route path='success' element={<Seccess />} />
+          <Route path='account' element={<Account />} />
+        </Routes>
+      </Router>
+    </div>
   )
 }
 export default App;

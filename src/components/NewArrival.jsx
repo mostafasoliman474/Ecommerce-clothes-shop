@@ -15,11 +15,13 @@ const Container = styled.div`
 const HeadLine = styled.h1`
   margin-bottom: 10px;
   font-size: 50px;
+  text-align: center  ;
 `
 const Title = styled.p`
   margin-bottom: 15px;
   opacity: .7;
-
+  text-align: center;
+  line-height: 1.7rem;
 `
 const ProductContainer = styled.div`
   display: flex;
@@ -33,7 +35,7 @@ export const NewArrival = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await axios.get("https://backendserver-xw5l.onrender.com/api/product?category=new-arrival");
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/product?category=new-arrival`);
         setProduct(res.data)
 
       } catch (error) {

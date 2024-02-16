@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import banner from '../asetess/about/banner.png'
-// import { CartItems } from '../Data'
 import { RemoveCircleOutline } from '@mui/icons-material'
 import { Navbar } from '../components/Navbar'
-// import {NewsLetter} from '../components/NewsLetter'
 import { Footer } from '../components/Footer'
 import { Mobile } from '../Responsive'
 import { useDispatch, useSelector } from 'react-redux'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { resetCart } from '../redux/cartReducer'
-
+import { removeProduct, resetCart } from '../redux/cartReducer'
 const Container = styled.div`
     
 `
@@ -49,7 +46,6 @@ const Desc = styled.p`
 //     border-bottom: 1px solid lightgray;
 // `
 const SelectedProdImg = styled.img`
-   
     height: 98%;
     border-radius: 5px;
     ${Mobile({
@@ -59,13 +55,23 @@ const SelectedProdImg = styled.img`
 const ProductName = styled.p`
     text-align: center;
 `
-const Quantity = styled.input`
+const Quantity = styled.span`
+display: flex;
     width: 100px;
     height: 40px;
-    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
     border-radius: 5px;
+    font-weight: 800;
     text-align: center;
 `
+// const Quantity = styled.span`
+//     width: 100px;
+//     height: 40px;
+//     border: 1px solid black;
+//     border-radius: 5px;
+//     text-align: center;
+// `
 const Price = styled.p`
     font-size: 20px;
     font-weight: 800;
@@ -192,31 +198,31 @@ const TableContent = styled.td`
 `
 
 export const Cart = () => {
-    const APIKEY = 'pk_test_51OIBXGGTHVRNZlBtU9bwqUW1Df0CIMl0TTBm9aYZ3vQWSgf4NeU5iYyjEK760Dj94hGgbbqc0t2V467iiDvRL0pq00HAYvCfeR'
+    const APIKEY = (process.env.REACT_APP_API_KEY)
+    console.log(APIKEY)
     const [stripeToken, setStripeToken] = useState('')
-    const { products, totalPrice } = useSelector((state) => state.cart);
+    const { products, totalPrice, added } = useSelector((state) => state.cart);
+    // console.log(products[1])
+    // console.log(added)
     const [total, setTotal] = useState(1);
-    const dispatch=useDispatch();
-    const navigate=useNavigate();
-    const handelChange = (e) => {
-        const value = e.target.value;
-        setTotal(value)
-    }
-    
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
     const onToken = (token) => {
         setStripeToken(token)
     }
-    useEffect(() => {
+    useEffect(() => { 
         try {
 
             const getData = async () => {
-                const res = await axios.post("https://backendserver-xw5l.onrender.com/api/checkout/payment", {
+                const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/checkout/payment`, {
                     tokenId: stripeToken.id,
                     amount: totalPrice * 100
                 });
                 dispatch(resetCart())
                 navigate('/success', { state: { data: res.data } })
-               
+
             }
             stripeToken && getData();
         } catch (error) {
@@ -224,7 +230,10 @@ export const Cart = () => {
         }
 
     }
-        , [stripeToken, totalPrice,navigate,dispatch])
+        , [stripeToken, totalPrice, navigate, dispatch])
+    const handelDelete = (id) => {
+        dispatch(removeProduct(id))
+    }
 
     return (
         <Container>
@@ -245,7 +254,7 @@ export const Cart = () => {
                 </RowsTable>
                 {products.map((item) => (
                     <RowsTable key={item.id}>
-                        <TableContent>
+                        <TableContent onClick={() => handelDelete(item._id)}>
                             <RemoveCircleOutline style={{ 'cursor': 'pointer' }} />
                         </TableContent>
                         <TableContent>
@@ -261,7 +270,7 @@ export const Cart = () => {
                             <Price>{item.price}$</Price>
                         </TableContent>
                         <TableContent>
-                            <Quantity min={1} defaultValue={item.chooseAmount} onChange={handelChange} />
+                            <Quantity>{item.chooseAmount}</Quantity>
                         </TableContent>
                         <TableContent>
                             <Subtotal>{item.price * total} $</Subtotal>
@@ -301,7 +310,6 @@ export const Cart = () => {
                         amount={totalPrice * 100}
                         name='CATA'
                         description={`your total is $${totalPrice}`}
-                        
                     >
                         <CheckOutBottom type='submit' >Proceed to checkout</CheckOutBottom>
                     </StripeCheckout>

@@ -4,7 +4,7 @@ import { connectionFailure, connectionStart, connectionSuccess } from "./userRed
 export const fetching=async(dispatch,user)=>{
     dispatch(connectionStart());
     try {
-        const res=await axios.post("https://backendserver-xw5l.onrender.com/api/auth/login",user)
+        const res=await axios.post(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/auth/login`,user)
         dispatch(connectionSuccess(res.data)) 
     } catch (error) {
         dispatch(connectionFailure()) 

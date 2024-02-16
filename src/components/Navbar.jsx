@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { Mobile } from '../Responsive'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import LogoutButton from './LogoutButton'
 const Container = styled.div`
   height: 70px;
   background-color: #E3E6F3;
@@ -165,8 +166,8 @@ export const Navbar = () => {
                 </Badge>
               </MenuItemCart>
             </Link>
-            <Link>
-              <Links to='/contactus' style={{ "color": "black" }}>{currentUser.username}</Links>
+            <Link to='/account'>
+              <Links to='/account' style={{ "color": "black" }}>{currentUser.username}</Links>
             </Link>
           </RightDesktop>
           ):(
@@ -206,9 +207,10 @@ export const Navbar = () => {
           <Link to='/cart' style={{ "color": "inherit" }}>
             <Links>Cart</Links>
           </Link>
-          <Link to='/' style={{ "color": "inherit" }}>
+          <Link to='/account' style={{ "color": "inherit" }}>
             <Links>{currentUser.username}</Links>
           </Link>
+          <LogoutButton/>
         </PopMenu>
           ) :(
             <PopMenu apper={toggle} style={{ width: `${toggle ? '100%' : '0'}` }} >

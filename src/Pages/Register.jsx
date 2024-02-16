@@ -107,7 +107,7 @@ const Register = () => {
     else{
 
       try {
-        const res = await axios.post('https://backendserver-xw5l.onrender.com/api/auth/register', { username, email, password });
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/auth/register`, { username, email, password });
         res && navigate('/login', { state: { data: res.data } })
       } catch (error) {
         console.log(error)
