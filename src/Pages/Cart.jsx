@@ -302,7 +302,7 @@ export const Cart = () => {
                         billingAddress
                         image='https://www.sdeyildizelektrik.com/Upload/Dosyalar/resim-png/cata-aydinlatma-fiyatlari-9da3540e-c74d-43f7-ae01-f741d96dec79.png?width=1200&format=webx&quality=80&overlay=varlik-8-60d5d6c6-78c3-45b8-8348-95c5f234a502.png&overlay.opacity=0'
                         token={onToken}
-                        stripeKey={process.env.REACT_APP_API_KEY}
+                        stripeKey="pk_test_51OIBXGGTHVRNZlBtU9bwqUW1Df0CIMl0TTBm9aYZ3vQWSgf4NeU5iYyjEK760Dj94hGgbbqc0t2V467iiDvRL0pq00HAYvCfeR"
                         shippingAddress
                         amount={totalPrice * 100}
                         name='CATA'
