@@ -196,10 +196,7 @@ const TableContent = styled.td`
     justify-content: center;
     
 `
-
 export const Cart = () => {
-    const APIKEY = (process.env.REACT_APP_API_KEY)
-    console.log(APIKEY)
     const [stripeToken, setStripeToken] = useState('')
     const { products, totalPrice, added } = useSelector((state) => state.cart);
     // console.log(products[1])
@@ -305,7 +302,7 @@ export const Cart = () => {
                         billingAddress
                         image='https://www.sdeyildizelektrik.com/Upload/Dosyalar/resim-png/cata-aydinlatma-fiyatlari-9da3540e-c74d-43f7-ae01-f741d96dec79.png?width=1200&format=webx&quality=80&overlay=varlik-8-60d5d6c6-78c3-45b8-8348-95c5f234a502.png&overlay.opacity=0'
                         token={onToken}
-                        stripeKey={APIKEY}
+                        stripeKey={process.env.REACT_APP_API_KEY}
                         shippingAddress
                         amount={totalPrice * 100}
                         name='CATA'

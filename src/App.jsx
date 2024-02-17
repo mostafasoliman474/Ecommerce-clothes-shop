@@ -14,7 +14,7 @@ import Seccess from './Pages/Success';
 import Account from './Pages/Account';
 
 const App = () => {
-  console.log(process.env.REACT_APP_API_KEY)
+  
   const { currentUser } = useSelector(state => state.user);
   return (
     <div className='App'>
