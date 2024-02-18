@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { removeProduct, resetCart } from '../redux/cartReducer'
+import { removeProduct, resetCart, updateProducts } from '../redux/cartReducer'
 const Container = styled.div`
     
 `
@@ -55,23 +55,23 @@ const SelectedProdImg = styled.img`
 const ProductName = styled.p`
     text-align: center;
 `
-const Quantity = styled.span`
-display: flex;
-    width: 100px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    font-weight: 800;
-    text-align: center;
-`
 // const Quantity = styled.span`
+// display: flex;
 //     width: 100px;
 //     height: 40px;
-//     border: 1px solid black;
+//     align-items: center;
+//     justify-content: center;
 //     border-radius: 5px;
+//     font-weight: 800;
 //     text-align: center;
 // `
+const Quantity = styled.input`
+    width: 100px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+`
 const Price = styled.p`
     font-size: 20px;
     font-weight: 800;
@@ -198,16 +198,16 @@ const TableContent = styled.td`
 `
 export const Cart = () => {
     const API_KEY=process.env.REACT_APP_API_KEY;
-    console.log(API_KEY)
     const [stripeToken, setStripeToken] = useState('')
-    const { products, totalPrice, added } = useSelector((state) => state.cart);
+    const { products, totalPrice } = useSelector((state) => state.cart);
     // console.log(products[1])
     // console.log(added)
-    const [total, setTotal] = useState(1);
+    // const [total, setTotal] = useState(1);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-
+    // const arr=[1,3,4,5]
+    
+    // console.log(arr.filter((item)=>item!=3))
     const onToken = (token) => {
         setStripeToken(token)
     }
@@ -227,13 +227,19 @@ export const Cart = () => {
         } catch (error) {
             console.log(error)
         }
-
     }
         , [stripeToken, totalPrice, navigate, dispatch])
-    const handelDelete = (id) => {
-        dispatch(removeProduct(id))
+    const handelDelete = (item) => {
+        // console.log(item)
+        dispatch(removeProduct(item))
+        // console.log(item)
     }
-
+    const hendelChange=(e,item)=>{
+        const updatedValue = e.target.value
+        // console.log({updatedValue,item})
+        dispatch(updateProducts({updatedValue,item}))
+    }
+    console.log(products)
     return (
         <Container>
             <Navbar />
@@ -269,10 +275,10 @@ export const Cart = () => {
                             <Price>{item.price}$</Price>
                         </TableContent>
                         <TableContent>
-                            <Quantity>{item.chooseAmount}</Quantity>
+                            <Quantity defaultValue={item.chooseAmount} type='number' onChange={(e)=>hendelChange(e,item)}/>
                         </TableContent>
                         <TableContent>
-                            <Subtotal>{item.price * total} $</Subtotal>
+                            <Subtotal>{item.price * item.chooseAmount} $</Subtotal>
                         </TableContent>
                     </RowsTable>
                 ))}

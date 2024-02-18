@@ -38,11 +38,11 @@ const Left = styled.div`
   padding-right: 3rem;
   height: 100%; 
   ${Mobile({
-    alignItems:"center",
-    padding: "0",
+  alignItems: "center",
+  padding: "0",
 
 
-  })} 
+})} 
 `
 const MainImg = styled.img`
     width:55%;
@@ -52,8 +52,8 @@ const MainImg = styled.img`
     background-repeat: no-repeat;
     border-radius: 10px 10px 10px 10px ;
     ${Mobile({
-      width:"90%"
-    })}
+  width: "90%"
+})}
 `
 // const SecondaryImgContainer = styled.div`
 //   display: flex;
@@ -155,8 +155,55 @@ const ProductInfo = styled.p`
   color: #000000ba;
   line-height: 1.75rem;
 `
+const PopUpMenuContainer = styled.div`
+  /* position: ; */
+  position: fixed;
+  max-width:500px;
+  max-height: 300px;
+  background-color: #E3E6F3;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`
+const PopUpMenu = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px; 
+
+`
+const PopMenuTitle = styled.span`
+  display:flex;
+  align-items:center;
+  width:90%;
+  height:30px; 
+  background-color:#34b31483; 
+  color:white;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 800 ;
+`
+const ProductCode = styled.p`
+  
+`
+const COLOR=styled.p`
+  
+`
+const ButtonsContainer=styled.div`
+  
+`
+const Total=styled.p`
+  
+`
 export const ProductDetails = (item) => {
-  const { products } = useSelector((state) => state.cart);
+  const { products } = useSelector((state) => state.cart)
+  const [popMenu, setPopMenu] = useState(true)
   const [chooseColor, setChooseColor] = useState('')
   const [chooseSize, setChooseSize] = useState('')
   const [chooseAmount, setChooseAmount] = useState(1)
@@ -185,41 +232,15 @@ export const ProductDetails = (item) => {
       )
     )
   }
+  useEffect(
+    () => {
+      setPopMenu((prev) => !prev)
+    },
+    [products]
+  )
   return (
     <Container>
       <Navbar />
-      {/* {ViewProduct.map((item) => (
-        <ProductContainer>
-          <Left>
-            <MainImg src={item.img} />
-            item.images[selectedPhoto].src
-            <SecondaryImgContainer>
-              {item.images.map((item)=>(
-                <Image src={item.src} position="secondary" />
-                // onClick={()=>setSelectedPhoto(item.index)}
-              ))}
-            </SecondaryImgContainer>
-          </Left>
-          <Right>
-            <Department>{item.department}</Department>
-            <ProductTitle>{item.title}</ProductTitle>
-            <Price>{item.price}</Price>
-            <SizeContainer>
-              <Size disabled>select size</Size>
-              <Size>S</Size>
-              <Size>M</Size>
-              <Size>L</Size>
-              <Size>XL</Size>
-            </SizeContainer>
-            <AmountContainer>
-              <Amount type='number' placeholder='0' min={0} />
-              <AddCartButton>Add to cart</AddCartButton>
-            </AmountContainer>
-            <ProductInfoTitle>Product Details</ProductInfoTitle>
-            <ProductInfo>{item.desc}</ProductInfo>
-          </Right>
-        </ProductContainer>
-      ))} */}
       <ProductContainer>
         <Left>
           <MainImg src={img} />
@@ -229,8 +250,6 @@ export const ProductDetails = (item) => {
           <ProductTitle>{title}</ProductTitle>
           {inStock && <ProductInfo>In Stock</ProductInfo>}
           <Price>{price}$</Price>
-
-
           <OptionContainer type='color' onChange={(e) => setChooseColor(e.target.value)}>
             <Option disabled selected>select color</Option>
             {color?.map(item => (
@@ -253,6 +272,39 @@ export const ProductDetails = (item) => {
           <ProductInfo>Train like a professional. Relax like a champion. This football jersey shows off a clean, classic design with an adidas Badge of Sport on the chest. Moisture-absorbing AEROREADY will keep you dry and cool whether you're playing a kickabout in the park or enjoying a night out on the town. Made with 100% recycled materials, this product represents just one of our solutions to help end plastic waste.</ProductInfo>
         </Right>
       </ProductContainer>
+
+      {/* {popMenu && */}
+      <>
+
+        {/* <span style={{ inset: "0", position: "absolute" }}></span> */}
+        {/* <PopUpMenuContainer>
+          <PopMenuTitle>
+            <p >Product update successfully</p>
+          </PopMenuTitle>
+          <PopUpMenu >
+            <div>
+              <img src={img} style={{ width: "30%", borderRadius: "10px", }} />
+              <div>
+                <ProductTitle>adsadsa</ProductTitle>
+                <ProductCode>Product Code : 1212 </ProductCode>
+              </div>
+            </div>
+            <div>
+              <COLOR>yellow</COLOR>
+            </div>
+            <p>1</p>
+            <p>400$</p>
+          </PopUpMenu>
+          <Total>800$</Total>
+          <ButtonsContainer>
+              <button>View Cart</button>
+              <button>Checkout</button>
+              <button>Continue Shopping</button>
+          </ButtonsContainer>
+        </PopUpMenuContainer> */}
+
+      </>
+      {/* } */}
       <NewArrival />
       <NewsLetter />
       <Footer />

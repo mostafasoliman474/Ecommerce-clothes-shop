@@ -12,13 +12,13 @@ import Register from './Pages/Register'
 import { useSelector } from 'react-redux';
 import Seccess from './Pages/Success';
 import Account from './Pages/Account';
-
+// import WithRouter from './WithRouter';
 const App = () => {
-  
   const { currentUser } = useSelector(state => state.user);
   return (
     <div className='App'>
       <Router>
+        {/* <WithRouter> */}
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='shop' element={<Shop />} />
@@ -33,6 +33,7 @@ const App = () => {
           <Route path='success' element={<Seccess />} />
           <Route path='account' element={<Account />} />
         </Routes>
+        {/* </WithRouter> */}
       </Router>
     </div>
   )

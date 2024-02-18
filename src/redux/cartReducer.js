@@ -14,17 +14,25 @@ const cartSlice = createSlice(
                 state.totalPrice += action.payload.price * action.payload.chooseAmount;
             },
             removeProduct: (state, action) => {
-                state.quantity -= 1;
-                console.log(state.products.filter((item) => item._id !== `${action.payload}`))
+                if (state.quantity > 0) {
+                    state.quantity -= 1;
+                    const productInParse = JSON.parse(JSON.stringify(state.products));
+                    state.products = productInParse.filter((item) => item._id !== action.payload);
+                }
+            },
+            updateProducts: (state, action) => {
+                const productInParse = JSON.parse(JSON.stringify(state.products));
 
-                // for(let i =0 ; i<state.products.length;i++){
-                //     for(let x in state.products){
-                //          if(x._id === action.payload){
-                //             state.products.splice(i)
-                //             break;
-                //          }
-                //     }
-                // } 
+                for (let i = 0; i <= productInParse.length; i++) {
+                    // console.log(productInParse[i])
+                    if (productInParse[i]?._id === action.payload.item?._id) {
+                        productInParse[i].chooseAmount = action.payload.updatedValue;
+                        // console.log("it is equal")
+                    }
+                }
+                state.products = productInParse;
+
+                // console.log(action.payload.item)
             },
             resetCart: (state) => {
                 state.products = [];
@@ -34,5 +42,5 @@ const cartSlice = createSlice(
         }
     }
 )
-export const { addProduct, resetCart, removeProduct } = cartSlice.actions;
+export const { addProduct, resetCart, removeProduct, updateProducts } = cartSlice.actions;
 export default cartSlice.reducer;
