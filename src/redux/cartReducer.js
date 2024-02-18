@@ -17,22 +17,25 @@ const cartSlice = createSlice(
                 if (state.quantity > 0) {
                     state.quantity -= 1;
                     const productInParse = JSON.parse(JSON.stringify(state.products));
-                    state.products = productInParse.filter((item) => item._id !== action.payload);
+                    state.products = productInParse.filter((item) => item._id !== action.payload._id);
+                    state.totalPrice -= action.payload.price * action.payload.chooseAmount;
                 }
             },
             updateProducts: (state, action) => {
                 const productInParse = JSON.parse(JSON.stringify(state.products));
-
                 for (let i = 0; i <= productInParse.length; i++) {
-                    // console.log(productInParse[i])
                     if (productInParse[i]?._id === action.payload.item?._id) {
-                        productInParse[i].chooseAmount = action.payload.updatedValue;
-                        // console.log("it is equal")
+                        if(productInParse[i].chooseAmount>action.payload.updatedValue){
+                            state.totalPrice -= (productInParse[i].chooseAmount * productInParse[i].price) - ((action.payload.item.chooseAmount-1) * action.payload.item.price);
+                            productInParse[i].chooseAmount = action.payload.updatedValue;
+                        }
+                        else{
+                            state.totalPrice +=((action.payload.item.chooseAmount) * action.payload.item.price) - ((productInParse[i].chooseAmount -1) * productInParse[i].price);
+                            productInParse[i].chooseAmount = action.payload.updatedValue;
+                        }    
                     }
                 }
                 state.products = productInParse;
-
-                // console.log(action.payload.item)
             },
             resetCart: (state) => {
                 state.products = [];

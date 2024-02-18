@@ -239,7 +239,7 @@ export const Cart = () => {
         // console.log({updatedValue,item})
         dispatch(updateProducts({updatedValue,item}))
     }
-    console.log(products)
+    // console.log(products)
     return (
         <Container>
             <Navbar />
@@ -259,7 +259,7 @@ export const Cart = () => {
                 </RowsTable>
                 {products.map((item) => (
                     <RowsTable key={item.id}>
-                        <TableContent onClick={() => handelDelete(item._id)}>
+                        <TableContent onClick={() => handelDelete(item)}>
                             <RemoveCircleOutline style={{ 'cursor': 'pointer' }} />
                         </TableContent>
                         <TableContent>
@@ -275,7 +275,7 @@ export const Cart = () => {
                             <Price>{item.price}$</Price>
                         </TableContent>
                         <TableContent>
-                            <Quantity defaultValue={item.chooseAmount} type='number' onChange={(e)=>hendelChange(e,item)}/>
+                            <Quantity min={1} defaultValue={item.chooseAmount} type='number' onChange={(e)=>hendelChange(e,item)}/>
                         </TableContent>
                         <TableContent>
                             <Subtotal>{item.price * item.chooseAmount} $</Subtotal>
