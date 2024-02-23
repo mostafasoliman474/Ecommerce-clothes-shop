@@ -94,7 +94,6 @@ const LogIn = () => {
     const {isFetching,error}=useSelector((state)=>state.user)
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    console.log({username,password})
     const dispatch=useDispatch();
     const handelClick=(e)=>{
         e.preventDefault();

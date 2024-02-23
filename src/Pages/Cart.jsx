@@ -153,6 +153,9 @@ const CheckOutBottom = styled.button`
     background-color: teal;
     border-radius: 5px;
     height: 40px;
+    &:disabled{
+        cursor: not-allowed;
+    }
 `
 const CartTable = styled.table`
     border-collapse: collapse;
@@ -197,49 +200,38 @@ const TableContent = styled.td`
     
 `
 export const Cart = () => {
-    const API_KEY=process.env.REACT_APP_API_KEY;
+    const API_KEY = process.env.REACT_APP_API_KEY;
     const [stripeToken, setStripeToken] = useState('')
     const { products, totalPrice } = useSelector((state) => state.cart);
-    // console.log(products[1])
-    // console.log(added)
-    // const [total, setTotal] = useState(1);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const arr=[1,3,4,5]
-    
-    // console.log(arr.filter((item)=>item!=3))
     const onToken = (token) => {
         setStripeToken(token)
     }
-    useEffect(() => { 
+    useEffect(() => {
         try {
-
             const getData = async () => {
+
                 const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/checkout/payment`, {
                     tokenId: stripeToken.id,
                     amount: totalPrice * 100
                 });
                 dispatch(resetCart())
                 navigate('/success', { state: { data: res.data } })
-
             }
-            stripeToken && getData();
+            (stripeToken && totalPrice > 0) && getData();
         } catch (error) {
             console.log(error)
         }
     }
         , [stripeToken, totalPrice, navigate, dispatch])
     const handelDelete = (item) => {
-        // console.log(item)
         dispatch(removeProduct(item))
-        // console.log(item)
     }
-    const hendelChange=(e,item)=>{
+    const hendelChange = (e, item) => {
         const updatedValue = e.target.value
-        // console.log({updatedValue,item})
-        dispatch(updateProducts({updatedValue,item}))
+        dispatch(updateProducts({ updatedValue, item }))
     }
-    // console.log(products)
     return (
         <Container>
             <Navbar />
@@ -275,7 +267,7 @@ export const Cart = () => {
                             <Price>{item.price}$</Price>
                         </TableContent>
                         <TableContent>
-                            <Quantity min={1} defaultValue={item.chooseAmount} type='number' onChange={(e)=>hendelChange(e,item)}/>
+                            <Quantity min={1} defaultValue={item.chooseAmount} type='number' onChange={(e) => hendelChange(e, item)} />
                         </TableContent>
                         <TableContent>
                             <Subtotal>{item.price * item.chooseAmount} $</Subtotal>
@@ -306,17 +298,19 @@ export const Cart = () => {
                         <Value>{totalPrice}$</Value>
                     </CartContainers>
                     <StripeCheckout
-                        key={1}
+                        key={10}
                         billingAddress
                         image='https://www.sdeyildizelektrik.com/Upload/Dosyalar/resim-png/cata-aydinlatma-fiyatlari-9da3540e-c74d-43f7-ae01-f741d96dec79.png?width=1200&format=webx&quality=80&overlay=varlik-8-60d5d6c6-78c3-45b8-8348-95c5f234a502.png&overlay.opacity=0'
                         token={onToken}
                         stripeKey={API_KEY}
                         shippingAddress
                         amount={totalPrice * 100}
+                        currency='usd'
                         name='CATA'
                         description={`your total is $${totalPrice}`}
                     >
-                        <CheckOutBottom type='submit' >Proceed to checkout</CheckOutBottom>
+                        <CheckOutBottom type='submit' disabled={totalPrice<=0}>Proceed to checkout</CheckOutBottom>
+                        
                     </StripeCheckout>
                 </CheckoutContainer>
             </TransactionContainer>

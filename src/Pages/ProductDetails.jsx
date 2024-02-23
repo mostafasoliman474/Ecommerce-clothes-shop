@@ -11,6 +11,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProduct } from '../redux/cartReducer'
 import { Mobile } from '../Responsive'
+import CustomButton from '../components/CustomButton'
 const Container = styled.div`
 
 `
@@ -134,7 +135,7 @@ const Amount = styled.input`
     margin: 0 10px 0 0 ;
     ${Mobile({
   textAlign: 'center',
-  padding: '0'
+  padding: '0',
 
 })}
 `
@@ -158,9 +159,9 @@ const ProductInfo = styled.p`
 const PopUpMenuContainer = styled.div`
   /* position: ; */
   position: fixed;
-  max-width:500px;
-  max-height: 300px;
-  background-color: #E3E6F3;
+  max-width:550px;
+  max-height: 380px;
+  background-color: rgb(0, 128, 128);
   top: 0;
   right: 0;
   left: 0;
@@ -170,40 +171,90 @@ const PopUpMenuContainer = styled.div`
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 10px;
+  align-items: center;
+  ${Mobile({
+    position:"fixed",
+    width: "100%",
+    maxHeight:"800px",
+    zIndex:"100",
+    borderRadius:"0px"
+})}
 `
 const PopUpMenu = styled.div`
   display: flex;
   align-items: center;
   gap: 20px; 
-
+  ${Mobile({
+    flexDirection:"column"
+  })}
 `
 const PopMenuTitle = styled.span`
   display:flex;
   align-items:center;
   width:90%;
   height:30px; 
-  background-color:#34b31483; 
-  color:white;
+  background-color:white; 
+  color:rgb(3, 74, 74);
   border-radius: 10px;
   padding: 10px;
   font-weight: 800 ;
+  justify-content: center;
 `
 const ProductCode = styled.p`
-  
+  font-size: 14px;
+  opacity: .8;
+  color: white;
+  font-weight: 700;
 `
-const COLOR=styled.p`
-  
+const COLOR=styled.div`
+  background-color: yellow;
+  padding: 1rem;
+  border-radius:50%;
+`
+const ImageProduct=styled.img`
+  border-radius: 10px;
+  width: 40%;
 `
 const ButtonsContainer=styled.div`
-  
+  display: flex;
+  width: 100%;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  ${Mobile({
+    flexDirection:"column",
+    gap:"5px"
+
+  })}
 `
 const Total=styled.p`
-  
+  color: teal;
+  font-weight: 900;
+  color: white;
+`
+const ChoosinInfo=styled.p`
+  font-weight: 800;
+  color: white;
+`
+const ProductDetailsContainer= styled.div`
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  ${Mobile({
+    flexDirection:"column"
+  })}
+`
+const InfoContainer=styled.div`
+  ${Mobile({
+    flexDirection:"column"
+  })}
 `
 export const ProductDetails = (item) => {
+  const ButtonStyled="color:rgb(3, 74, 74);border-radius:10px;background:white;padding:10px;font-weight:600;&:hover{color:white;background:#34b31483}"
   const { products } = useSelector((state) => state.cart)
-  const [popMenu, setPopMenu] = useState(true)
+  const [popMenu, setPopMenu] = useState(false)
+  console.log(popMenu)
   const [chooseColor, setChooseColor] = useState('')
   const [chooseSize, setChooseSize] = useState('')
   const [chooseAmount, setChooseAmount] = useState(1)
@@ -221,7 +272,7 @@ export const ProductDetails = (item) => {
   }, [location, id])
   // console.log({chooseColor,chooseSize,chooseAmount})
   const handelClick = () => {
-    dispatch(
+    (chooseAmount >0 && chooseSize && chooseColor) &&dispatch(
       addProduct(
         {
           ...product,
@@ -230,14 +281,8 @@ export const ProductDetails = (item) => {
           chooseColor
         }
       )
-    )
+    )&&setPopMenu((prev)=>!prev)
   }
-  useEffect(
-    () => {
-      setPopMenu((prev) => !prev)
-    },
-    [products]
-  )
   return (
     <Container>
       <Navbar />
@@ -250,7 +295,7 @@ export const ProductDetails = (item) => {
           <ProductTitle>{title}</ProductTitle>
           {inStock && <ProductInfo>In Stock</ProductInfo>}
           <Price>{price}$</Price>
-          <OptionContainer type='color' onChange={(e) => setChooseColor(e.target.value)}>
+          <OptionContainer type='color' onChange={(e) => setChooseColor(e.target.value)} required>
             <Option disabled selected>select color</Option>
             {color?.map(item => (
               <Option value={item} key={item}>{item}</Option>
@@ -258,14 +303,14 @@ export const ProductDetails = (item) => {
             }
           </OptionContainer>
 
-          <OptionContainer onChange={(e) => setChooseSize(e.target.value)} >
+          <OptionContainer onChange={(e) => setChooseSize(e.target.value)} required>
             <Option disabled selected>select size</Option>
             {size?.map(item => (
               <Option value={item} key={item}>{item}</Option>
             ))}
           </OptionContainer>
           <AmountContainer>
-            <Amount type='number' placeholder='0' min={0} onChange={(e) => setChooseAmount(e.target.value)} />
+            <Amount type='number' placeholder='0' min={0} onChange={(e) => setChooseAmount(e.target.value)} required/>
             <AddCartButton onClick={handelClick}>Add to cart</AddCartButton>
           </AmountContainer>
           <ProductInfoTitle>Product Details</ProductInfoTitle>
@@ -273,38 +318,35 @@ export const ProductDetails = (item) => {
         </Right>
       </ProductContainer>
 
-      {/* {popMenu && */}
+   
+      {popMenu && 
       <>
-
-        {/* <span style={{ inset: "0", position: "absolute" }}></span> */}
-        {/* <PopUpMenuContainer>
+        <span style={{ inset: "0", position: "absolute"}}></span>
+        <PopUpMenuContainer>
           <PopMenuTitle>
-            <p >Product update successfully</p>
+            <p >Product added successfully</p>
           </PopMenuTitle>
           <PopUpMenu >
-            <div>
-              <img src={img} style={{ width: "30%", borderRadius: "10px", }} />
-              <div>
-                <ProductTitle>adsadsa</ProductTitle>
-                <ProductCode>Product Code : 1212 </ProductCode>
-              </div>
-            </div>
-            <div>
-              <COLOR>yellow</COLOR>
-            </div>
-            <p>1</p>
-            <p>400$</p>
+            <ProductDetailsContainer>
+              <ImageProduct src={img}/>
+              <InfoContainer>
+                <ProductTitle style={{color:'white'}}>Nike T-shirt</ProductTitle>
+                <ProductCode>Product code : 16954457 </ProductCode>
+              </InfoContainer>
+            </ProductDetailsContainer>
+              <COLOR/>
+            <ChoosinInfo>1</ChoosinInfo>
+            <ChoosinInfo>400$</ChoosinInfo>
           </PopUpMenu>
-          <Total>800$</Total>
+          <Total>Total : {price}$</Total>
           <ButtonsContainer>
-              <button>View Cart</button>
-              <button>Checkout</button>
-              <button>Continue Shopping</button>
+              <CustomButton destination='/cart' text='View Cart' styling={ButtonStyled}/>
+              <CustomButton destination='/cart' text='Checkout' styling={ButtonStyled}/>
+              <CustomButton destination='/shop' text='Continue Shopping' styling={ButtonStyled}/>
           </ButtonsContainer>
-        </PopUpMenuContainer> */}
+        </PopUpMenuContainer>
 
-      </>
-      {/* } */}
+        </>}
       <NewArrival />
       <NewsLetter />
       <Footer />

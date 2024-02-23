@@ -24,15 +24,20 @@ const cartSlice = createSlice(
             updateProducts: (state, action) => {
                 const productInParse = JSON.parse(JSON.stringify(state.products));
                 for (let i = 0; i <= productInParse.length; i++) {
-                    if (productInParse[i]?._id === action.payload.item?._id) {
-                        if(productInParse[i].chooseAmount>action.payload.updatedValue){
-                            state.totalPrice -= (productInParse[i].chooseAmount * productInParse[i].price) - ((action.payload.item.chooseAmount-1) * action.payload.item.price);
-                            productInParse[i].chooseAmount = action.payload.updatedValue;
+                    if (action.payload.updatedValue > 0 && action.payload.updatedValue) {
+                        if (productInParse[i]?._id === action.payload.item?._id) {
+                            if (productInParse[i].chooseAmount > action.payload.updatedValue) {
+                                state.totalPrice -= (productInParse[i].chooseAmount * productInParse[i].price) - ((action.payload.item.chooseAmount - 1) * action.payload.item.price);
+                                productInParse[i].chooseAmount = action.payload.updatedValue;
+                            }
+                            else if (productInParse[i].chooseAmount < action.payload.updatedValue) {
+                                state.totalPrice += ((action.payload.item.chooseAmount) * action.payload.item.price) - ((productInParse[i].chooseAmount - 1) * productInParse[i].price);
+                                productInParse[i].chooseAmount = action.payload.updatedValue;
+                            }
                         }
-                        else{
-                            state.totalPrice +=((action.payload.item.chooseAmount) * action.payload.item.price) - ((productInParse[i].chooseAmount -1) * productInParse[i].price);
-                            productInParse[i].chooseAmount = action.payload.updatedValue;
-                        }    
+                    }
+                    else {
+                        state.totalPrice = 0
                     }
                 }
                 state.products = productInParse;
