@@ -336,7 +336,7 @@ export const ProductDetails = (item) => {
             </ProductDetailsContainer>
               <COLOR/>
             <ChoosinInfo>1</ChoosinInfo>
-            <ChoosinInfo>400$</ChoosinInfo>
+            <ChoosinInfo>{price}</ChoosinInfo>
           </PopUpMenu>
           <Total>Total : {price*chooseAmount}$</Total>
           <ButtonsContainer>
