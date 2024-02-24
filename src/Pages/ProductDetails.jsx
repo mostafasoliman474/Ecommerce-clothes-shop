@@ -338,7 +338,7 @@ export const ProductDetails = (item) => {
             <ChoosinInfo>1</ChoosinInfo>
             <ChoosinInfo>400$</ChoosinInfo>
           </PopUpMenu>
-          <Total>Total : {price}$</Total>
+          <Total>Total : {price*chooseAmount}$</Total>
           <ButtonsContainer>
               <CustomButton destination='/cart' text='View Cart' styling={ButtonStyled}/>
               <CustomButton destination='/cart' text='Checkout' styling={ButtonStyled}/>
