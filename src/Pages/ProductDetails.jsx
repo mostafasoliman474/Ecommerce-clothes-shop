@@ -161,6 +161,7 @@ const PopUpMenuContainer = styled.div`
   position: fixed;
   max-width:550px;
   max-height: 380px;
+  z-index: 10;
   background-color: rgb(0, 128, 128);
   top: 0;
   right: 0;
@@ -321,7 +322,7 @@ export const ProductDetails = (item) => {
    
       {popMenu && 
       <>
-        <span style={{ inset: "0", position: "absolute"}}></span>
+        <span style={{ inset: "0", position: "absolute",zIndex:"9"}}></span>
         <PopUpMenuContainer>
           <PopMenuTitle>
             <p >Product added successfully</p>
