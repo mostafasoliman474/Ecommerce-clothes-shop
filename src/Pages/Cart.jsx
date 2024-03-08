@@ -211,7 +211,6 @@ export const Cart = () => {
     useEffect(() => {
         try {
             const getData = async () => {
-
                 const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/checkout/payment`, {
                     tokenId: stripeToken.id,
                     amount: totalPrice * 100
@@ -226,6 +225,7 @@ export const Cart = () => {
     }
         , [stripeToken, totalPrice, navigate, dispatch])
     const handelDelete = (item) => {
+        console.log(item)
         dispatch(removeProduct(item))
     }
     const hendelChange = (e, item) => {
@@ -310,7 +310,6 @@ export const Cart = () => {
                         description={`your total is $${totalPrice}`}
                     >
                         <CheckOutBottom type='submit' disabled={totalPrice<=0}>Proceed to checkout</CheckOutBottom>
-                        
                     </StripeCheckout>
                 </CheckoutContainer>
             </TransactionContainer>

@@ -1,35 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Navbar } from '../components/Navbar'
-
 import { NewsLetter } from '../components/NewsLetter'
 import { NewArrival } from '../components/NewArrival'
-// import { ViewProduct } from '../Data'
 import { Footer } from '../components/Footer'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addProduct } from '../redux/cartReducer'
 import { Mobile } from '../Responsive'
 import CustomButton from '../components/CustomButton'
 const Container = styled.div`
-
 `
-
 const ProductContainer = styled.div`
   height: auto;
   width: 100%;
   display: flex;
   flex-direction:row;
   padding-top: 100px;
-  
   ${Mobile({
   flexDirection: 'column',
   alignItems: 'center',
-  // height: '120vh',
   textAlign: 'center'
-})}
-  
+})} 
 `
 const Left = styled.div`
   flex: 1;
@@ -39,22 +32,20 @@ const Left = styled.div`
   padding-right: 3rem;
   height: 100%; 
   ${Mobile({
-  alignItems: "center",
-  padding: "0",
-
-
-})} 
+    alignItems: "center",
+    padding: "0",
+  })} 
 `
 const MainImg = styled.img`
-    width:55%;
-    display: flex;
-    background-image: url(${props => props.src});
-    background-size: contain;
-    background-repeat: no-repeat;
-    border-radius: 10px 10px 10px 10px ;
-    ${Mobile({
-  width: "90%"
-})}
+  width:55%;
+  display: flex;
+  background-image: url(${props => props.src});
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 10px 10px 10px 10px ;
+  ${Mobile({
+    width: "90%"
+  })}
 `
 // const SecondaryImgContainer = styled.div`
 //   display: flex;
@@ -175,11 +166,11 @@ const PopUpMenuContainer = styled.div`
   gap: 10px;
   align-items: center;
   ${Mobile({
-    position:"fixed",
-    width: "100%",
-    maxHeight:"800px",
-    zIndex:"100",
-    borderRadius:"0px"
+  position: "fixed",
+  width: "100%",
+  maxHeight: "800px",
+  zIndex: "100",
+  borderRadius: "0px"
 })}
 `
 const PopUpMenu = styled.div`
@@ -187,8 +178,8 @@ const PopUpMenu = styled.div`
   align-items: center;
   gap: 20px; 
   ${Mobile({
-    flexDirection:"column"
-  })}
+  flexDirection: "column"
+})}
 `
 const PopMenuTitle = styled.span`
   display:flex;
@@ -208,54 +199,52 @@ const ProductCode = styled.p`
   color: white;
   font-weight: 700;
 `
-const COLOR=styled.div`
+const COLOR = styled.div`
   background-color: yellow;
   padding: 1rem;
   border-radius:50%;
 `
-const ImageProduct=styled.img`
+const ImageProduct = styled.img`
   border-radius: 10px;
   width: 40%;
 `
-const ButtonsContainer=styled.div`
+const ButtonsContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 40px;
   align-items: center;
   justify-content: center;
   ${Mobile({
-    flexDirection:"column",
-    gap:"5px"
+  flexDirection: "column",
+  gap: "5px"
 
-  })}
+})}
 `
-const Total=styled.p`
+const Total = styled.p`
   color: teal;
   font-weight: 900;
   color: white;
 `
-const ChoosinInfo=styled.p`
+const ChoosinInfo = styled.p`
   font-weight: 800;
   color: white;
 `
-const ProductDetailsContainer= styled.div`
+const ProductDetailsContainer = styled.div`
   display: flex;
   gap: 30px;
   align-items: center;
   ${Mobile({
-    flexDirection:"column"
-  })}
+  flexDirection: "column"
+})}
 `
-const InfoContainer=styled.div`
+const InfoContainer = styled.div`
   ${Mobile({
-    flexDirection:"column"
-  })}
+  flexDirection: "column"
+})}
 `
 export const ProductDetails = (item) => {
-  const ButtonStyled="color:rgb(3, 74, 74);border-radius:10px;background:white;padding:10px;font-weight:600;&:hover{color:white;background:#34b31483}"
-  const { products } = useSelector((state) => state.cart)
+  const ButtonStyled = "color:rgb(3, 74, 74);border-radius:10px;background:white;padding:10px;font-weight:600;&:hover{color:white;background:#34b31483}"
   const [popMenu, setPopMenu] = useState(false)
-  console.log(popMenu)
   const [chooseColor, setChooseColor] = useState('')
   const [chooseSize, setChooseSize] = useState('')
   const [chooseAmount, setChooseAmount] = useState(1)
@@ -273,7 +262,7 @@ export const ProductDetails = (item) => {
   }, [location, id])
   // console.log({chooseColor,chooseSize,chooseAmount})
   const handelClick = () => {
-    (chooseAmount >0 && chooseSize && chooseColor) &&dispatch(
+    (chooseAmount > 0 && chooseSize && chooseColor) && dispatch(
       addProduct(
         {
           ...product,
@@ -282,7 +271,7 @@ export const ProductDetails = (item) => {
           chooseColor
         }
       )
-    )&&setPopMenu((prev)=>!prev)
+    ) && setPopMenu((prev) => !prev)
   }
   return (
     <Container>
@@ -303,7 +292,6 @@ export const ProductDetails = (item) => {
             ))
             }
           </OptionContainer>
-
           <OptionContainer onChange={(e) => setChooseSize(e.target.value)} required>
             <Option disabled selected>select size</Option>
             {size?.map(item => (
@@ -311,42 +299,39 @@ export const ProductDetails = (item) => {
             ))}
           </OptionContainer>
           <AmountContainer>
-            <Amount type='number' placeholder='0' min={0} onChange={(e) => setChooseAmount(e.target.value)} required/>
+            <Amount type='number' placeholder='0' min={0} onChange={(e) => setChooseAmount(e.target.value)} required />
             <AddCartButton onClick={handelClick}>Add to cart</AddCartButton>
           </AmountContainer>
           <ProductInfoTitle>Product Details</ProductInfoTitle>
           <ProductInfo>Train like a professional. Relax like a champion. This football jersey shows off a clean, classic design with an adidas Badge of Sport on the chest. Moisture-absorbing AEROREADY will keep you dry and cool whether you're playing a kickabout in the park or enjoying a night out on the town. Made with 100% recycled materials, this product represents just one of our solutions to help end plastic waste.</ProductInfo>
         </Right>
       </ProductContainer>
-
-   
-      {popMenu && 
-      <>
-        <span style={{ inset: "0", position: "absolute",zIndex:"9"}}></span>
-        <PopUpMenuContainer>
-          <PopMenuTitle>
-            <p >Product added successfully</p>
-          </PopMenuTitle>
-          <PopUpMenu >
-            <ProductDetailsContainer>
-              <ImageProduct src={img}/>
-              <InfoContainer>
-                <ProductTitle style={{color:'white'}}>Nike T-shirt</ProductTitle>
-                <ProductCode>Product code : 16954457 </ProductCode>
-              </InfoContainer>
-            </ProductDetailsContainer>
-              <COLOR/>
-            <ChoosinInfo>1</ChoosinInfo>
-            <ChoosinInfo>{price}</ChoosinInfo>
-          </PopUpMenu>
-          <Total>Total : {price*chooseAmount}$</Total>
-          <ButtonsContainer>
-              <CustomButton destination='/cart' text='View Cart' styling={ButtonStyled}/>
-              <CustomButton destination='/cart' text='Checkout' styling={ButtonStyled}/>
-              <CustomButton destination='/shop' text='Continue Shopping' styling={ButtonStyled}/>
-          </ButtonsContainer>
-        </PopUpMenuContainer>
-
+      {popMenu &&
+        <>
+          <span style={{ inset: "0", position: "absolute", zIndex: "9" }}></span>
+          <PopUpMenuContainer>
+            <PopMenuTitle>
+              <p >Product added successfully</p>
+            </PopMenuTitle>
+            <PopUpMenu >
+              <ProductDetailsContainer>
+                <ImageProduct src={img} />
+                <InfoContainer>
+                  <ProductTitle style={{ color: 'white' }}>Nike T-shirt</ProductTitle>
+                  <ProductCode>Product code : 16954457 </ProductCode>
+                </InfoContainer>
+              </ProductDetailsContainer>
+              <COLOR />
+              <ChoosinInfo>1</ChoosinInfo>
+              <ChoosinInfo>{price}</ChoosinInfo>
+            </PopUpMenu>
+            <Total>Total : {price * chooseAmount}$</Total>
+            <ButtonsContainer>
+              <CustomButton destination='/cart' text='View Cart' styling={ButtonStyled} />
+              <CustomButton destination='/cart' text='Checkout' styling={ButtonStyled} />
+              <CustomButton destination='/shop' text='Continue Shopping' styling={ButtonStyled} />
+            </ButtonsContainer>
+          </PopUpMenuContainer>
         </>}
       <NewArrival />
       <NewsLetter />

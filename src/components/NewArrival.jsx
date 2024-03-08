@@ -52,7 +52,7 @@ export const NewArrival = () => {
       <Link to='/productdetails' style={{ textDecorationColor: 'transparent' }}>
         <ProductContainer>
           {myProduct.map((item) => (
-            <Product item={item} key={item.id} />
+            <Product item={item} key={item} />
           ))}
         </ProductContainer>
       </Link>

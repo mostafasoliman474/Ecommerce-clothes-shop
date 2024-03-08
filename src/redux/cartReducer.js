@@ -9,9 +9,36 @@ const cartSlice = createSlice(
         },
         reducers: {
             addProduct: (state, action) => {
-                state.quantity += 1;
-                state.products.push(action.payload);
-                state.totalPrice += action.payload.price * action.payload.chooseAmount;
+                if (state.products.length>0){
+                    const productInParse = JSON.parse(JSON.stringify(state.products));
+                    let listOfProduct = productInParse.filter((item) => item._id == action.payload._id);
+                    const dublicate = listOfProduct.filter((item) =>
+                        item._id == action.payload._id && item.chooseSize == action.payload.chooseSize && item.chooseColor == action.payload.chooseColor
+                    )
+                    console.log(dublicate)
+                    if (dublicate.length>0) {
+
+                        const additionChooseAmount = parseInt(action.payload.chooseAmount);
+                        const dublicateChooseAmount = parseInt(dublicate[0].chooseAmount)
+
+                        dublicate[0].chooseAmount = dublicateChooseAmount + additionChooseAmount
+                        const productsWithNoProductUpdated = productInParse.filter((item) => item._id !== action.payload._id);
+
+                        productsWithNoProductUpdated.push(dublicate[0])
+
+                        state.products = productsWithNoProductUpdated
+                    }
+                    else {
+                        state.quantity += 1;
+                        state.products.push(action.payload);
+                        state.totalPrice += action.payload.price * action.payload.chooseAmount;
+                    }
+                }
+                else {
+                    state.quantity += 1;
+                    state.products.push(action.payload);
+                    state.totalPrice += action.payload.price * action.payload.chooseAmount;
+                }
             },
             removeProduct: (state, action) => {
                 if (state.quantity > 0) {

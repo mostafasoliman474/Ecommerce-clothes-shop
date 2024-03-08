@@ -78,7 +78,7 @@ export const Shop = () => {
         </Banner>
         <ProductView>
             {products.map((item)=>(
-                <Product item={item}/>
+                <Product item={item} key={item}/>
             ))}
             {/* {NewArrivalItems.map((item)=>(
                 <Product item={item}/>
