@@ -9,23 +9,19 @@ const cartSlice = createSlice(
         },
         reducers: {
             addProduct: (state, action) => {
-                if (state.products.length>0){
+                if (state.products.length > 0) {
                     const productInParse = JSON.parse(JSON.stringify(state.products));
-                    let listOfProduct = productInParse.filter((item) => item._id == action.payload._id);
+                    let listOfProduct = productInParse.filter((item) => item._id === action.payload._id);
                     const dublicate = listOfProduct.filter((item) =>
-                        item._id == action.payload._id && item.chooseSize == action.payload.chooseSize && item.chooseColor == action.payload.chooseColor
+                        item._id === action.payload._id && item.chooseSize === action.payload.chooseSize && item.chooseColor === action.payload.chooseColor
                     )
-                    console.log(dublicate)
-                    if (dublicate.length>0) {
+                    if (dublicate.length > 0) {
 
                         const additionChooseAmount = parseInt(action.payload.chooseAmount);
                         const dublicateChooseAmount = parseInt(dublicate[0].chooseAmount)
-
                         dublicate[0].chooseAmount = dublicateChooseAmount + additionChooseAmount
                         const productsWithNoProductUpdated = productInParse.filter((item) => item._id !== action.payload._id);
-
                         productsWithNoProductUpdated.push(dublicate[0])
-
                         state.products = productsWithNoProductUpdated
                     }
                     else {
@@ -44,7 +40,15 @@ const cartSlice = createSlice(
                 if (state.quantity > 0) {
                     state.quantity -= 1;
                     const productInParse = JSON.parse(JSON.stringify(state.products));
-                    state.products = productInParse.filter((item) => item._id !== action.payload._id);
+                    // console.log(
+                    //     "id"+ action.payload._id+"\n"+
+                    //     "chooseSize"+ action.payload.chooseSize+"\n"+
+                    //     "chooseColor"+ action.payload.chooseColor+"\n"
+                    // )
+                    state.products = productInParse.filter((item) =>
+                        item._id !== action.payload._id && item.chooseSize !== action.payload.chooseSize && item.chooseColor !== action.payload.chooseColor
+                    )
+                        ;
                     state.totalPrice -= action.payload.price * action.payload.chooseAmount;
                 }
             },

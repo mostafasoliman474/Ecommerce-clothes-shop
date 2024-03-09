@@ -31,20 +31,6 @@ const Title = styled.h1`
 const Desc = styled.p`
     opacity: .7;
 `
-// const CartContainer = styled.div`
-//     width: 80%;
-//     margin:auto;
-// `
-// const CartProduct = styled.div`
-//    display: flex;
-//     flex-direction: row;
-//     width: 100%;
-//     margin: auto;
-//     height: 15vh;
-//     justify-content: space-between;
-//     align-items: center;
-//     border-bottom: 1px solid lightgray;
-// `
 const SelectedProdImg = styled.img`
     height: 98%;
     border-radius: 5px;
@@ -55,16 +41,6 @@ const SelectedProdImg = styled.img`
 const ProductName = styled.p`
     text-align: center;
 `
-// const Quantity = styled.span`
-// display: flex;
-//     width: 100px;
-//     height: 40px;
-//     align-items: center;
-//     justify-content: center;
-//     border-radius: 5px;
-//     font-weight: 800;
-//     text-align: center;
-// `
 const Quantity = styled.input`
     width: 100px;
     height: 40px;
@@ -85,10 +61,6 @@ const CouponContainer = styled.div`
     flex-direction: column;
     flex: 1;
 `
-// const Headlines=styled.p`
-//     font-weight: 700;
-//     margin-bottom: 15px;
-// `
 const BigHeadlines = styled.h1`
     font-weight: 700;
     margin-bottom: 15px;
