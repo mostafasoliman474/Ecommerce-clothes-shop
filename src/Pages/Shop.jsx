@@ -58,7 +58,6 @@ export const Shop = () => {
     const [products, setProducts] = useState([])
     useEffect(()=>{
         const getData=async()=>{
-
             try {
                 const res=await axios.get(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/product`)
                 setProducts(res.data)
@@ -80,9 +79,6 @@ export const Shop = () => {
             {products.map((item)=>(
                 <Product item={item} key={item}/>
             ))}
-            {/* {NewArrivalItems.map((item)=>(
-                <Product item={item}/>
-            ))} */}
         </ProductView>
         <SwapContainer>
             <Squer>1</Squer>

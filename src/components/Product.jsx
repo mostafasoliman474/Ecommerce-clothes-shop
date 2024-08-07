@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Mobile } from '../Responsive'
 import { Link } from 'react-router-dom'
-const Container = styled.div`
+const Container = styled.a`
     display: flex;
     flex-direction: column;
     width: 300px;
@@ -11,7 +11,8 @@ const Container = styled.div`
     border-radius: 20px;
     margin: 20px;
     transition:ease-out 70ms;
-    max-height: 490px;
+    height: 450px;
+    padding: 10px;
     ${Mobile({
     // width: '350px',
     // height: '430px'
@@ -21,18 +22,21 @@ const Container = styled.div`
     }
 `
 const ImageContainer = styled.div`
-    flex:1;
-    height: 70%;
     display: flex;
     justify-content: center;
     cursor: pointer;
+    height: 100%;
+    width: 100%;
+    /* background-image: url(${props=>props.photo}); */
+    background-size: cover;
+    height: 70%;
 `
 const InfoContainer = styled.div`
-    /* height: 25%; */
     display: flex;
     align-items: flex-start;
     flex-direction: column;
     padding: 10px;
+    height: 30%;
 `
 const Brand = styled.p`
     color: #222;
@@ -42,7 +46,7 @@ const Brand = styled.p`
 `
 const Image = styled.img`
     width: 100%;
-    border-radius:  30px ;
+    border-radius:30px ;
     padding:  10px 10px;
 `
 const Desc = styled.p`
@@ -83,15 +87,15 @@ const PriceRateContainer = styled.div`
 `
 export const Product = ({ item }) => {
     return (
-        <Container>
-            <Link to={`/productdetails/${item._id}`} style={{textDecoration:'none'}}>
-
+        <Container href={`/productdetails/${item._id}`} style={{textDecoration:'none'}}>
+            {/* <Link to={`/productdetails/${item._id}`} style={{textDecoration:'none'}}> */}
+            {/* photo={item.img}/ */}
             <ImageContainer>
                 <Image src={item.img} />
             </ImageContainer>
             <InfoContainer>
-                <Brand >{item.brand}</Brand>
-                <Desc >{item.desc}</Desc>
+                <Brand >{item.producer}</Brand>
+                <Desc >{item.title}</Desc>
                 <BannerFooter>
                     <PriceRateContainer>
                         <StarContainer>
@@ -108,7 +112,7 @@ export const Product = ({ item }) => {
                     </CartContainer>
                 </BannerFooter>
             </InfoContainer>
-            </Link>
+            
         </Container>
     )
 }

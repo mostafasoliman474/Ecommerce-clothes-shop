@@ -173,6 +173,7 @@ const TableContent = styled.td`
 `
 export const Cart = () => {
     const API_KEY = process.env.REACT_APP_API_KEY;
+    const {currentUser} = useSelector((state) => state.user);
     const [stripeToken, setStripeToken] = useState('')
     const { products, totalPrice } = useSelector((state) => state.cart);
     const dispatch = useDispatch();
@@ -188,14 +189,14 @@ export const Cart = () => {
                     amount: totalPrice * 100
                 });
                 dispatch(resetCart())
-                navigate('/success', { state: { data: res.data } })
+                navigate('/success', { state: { data: res.data,products,currentUser } }) 
             }
             (stripeToken && totalPrice > 0) && getData();
         } catch (error) {
             console.log(error)
         }
     }
-        , [stripeToken, totalPrice, navigate, dispatch])
+        , [stripeToken, totalPrice, navigate, dispatch,products,currentUser])
     const handelDelete = (item) => {
         console.log(item)
         dispatch(removeProduct(item))

@@ -91,14 +91,15 @@ const Error=styled.p`
 
 const Register = () => {
   const [username, setUserName] = useState('')
+  const [firstname, setFirstName] = useState('')
+  const [lastname, setLastName] = useState('')
+  const [phone, setPhone] = useState('')
   const [email, setEmial] = useState('')
   const [password, setPassword] = useState('')
   const [confirmation, setConfirmation] = useState('')
   console.log(confirmation)
   const navigate = useNavigate();
   const [error, setError] = useState(false)
-  // const dispatch=useDispatch();
-
   const handelClick = async () => {
   
     if (password !== confirmation)  {
@@ -107,8 +108,8 @@ const Register = () => {
     else{
 
       try {
-        const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/auth/register`, { username, email, password });
-        res && navigate('/login', { state: { data: res.data } })
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERVER_URL}/api/auth/register`, { username,firstname,lastname,phone, email, password });
+        res && navigate('/login?you%have%successful', { state: { data: res.data } })
       } catch (error) {
         console.log(error)
       }
@@ -119,11 +120,14 @@ const Register = () => {
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
+        
         <Form>
-          <Input type='text' placeholder='First Name' />
-          <Input type='text' placeholder='Last Name' />
+          <Input type='text' placeholder='First Name'   onChange={(e) => setFirstName(e.target.value)}  />
+          <Input type='text' placeholder='Last Name'  onChange={(e) => setLastName(e.target.value)} />
           <Input type='text' placeholder='UserName' onChange={(e) => setUserName(e.target.value)} />
+          <Input type='text' placeholder='Phone' onChange={(e) => setPhone(e.target.value)} />
           <Input type='email' placeholder='Email' onChange={(e) => setEmial(e.target.value)} />
+        
           <Input type='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
           <Input type='password' placeholder='Confirm Password' onChange={(e) => setConfirmation(e.target.value)} />
           {error && <Error>password not the same</Error>}
