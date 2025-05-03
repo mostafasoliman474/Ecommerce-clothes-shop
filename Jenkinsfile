@@ -3,14 +3,15 @@ pipline {
   stages {
     stage("build"){
       steps{
-        echo 'build the application'
+        sh 'npm start' 
+        sh 'npm build
       }
     }
-    stage("test"){
-       echo 'test the application'
-    }
-    stage("deploy"){
-       echo 'deploy the application'
-    }
-  }
+  //   stage("test"){
+  //      echo 'test the application'
+  //   }
+  //   stage("deploy"){
+  //      echo 'deploy the application'
+  //   }
+  // }
 }
